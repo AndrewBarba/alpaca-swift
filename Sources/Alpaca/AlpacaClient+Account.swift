@@ -7,9 +7,8 @@
 
 import Foundation
 
-extension AlpacaClient {
-
-    public struct AccountResponse: Decodable {
+extension Models {
+    public struct Account: Decodable {
         public enum Status: String, Decodable, CaseIterable {
             case onboarding = "ONBOARDING"
             case submissionFailed = "SUBMISSION_FAILED"
@@ -46,8 +45,10 @@ extension AlpacaClient {
         public let daytradingBuyingPower: NumericString<Double>
         public let regtBuyingPower: NumericString<Double>
     }
+}
 
-    public func account() -> ResponsePublisher<AccountResponse> {
+extension AlpacaClient {
+    public func account() -> ResponsePublisher<Models.Account> {
         return get("account")
     }
 }

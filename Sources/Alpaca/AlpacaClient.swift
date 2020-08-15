@@ -9,21 +9,20 @@ import OpenCombine
 import OpenCombineFoundation
 #endif
 
-public struct Environment {
-    public let api: String
-    public let key: String
-    public let secret: String
+public struct AlpacaClient {
+    public struct Environment {
+        public let api: String
+        public let key: String
+        public let secret: String
 
-    public static func production(key: String, secret: String) -> Self {
-        Environment(api: "https://api.alpaca.markets/v2", key: key, secret: secret)
+        public static func production(key: String, secret: String) -> Self {
+            Environment(api: "https://api.alpaca.markets/v2", key: key, secret: secret)
+        }
+
+        public static func paper(key: String, secret: String) -> Self {
+            Environment(api: "https://paper-api.alpaca.markets/v2", key: key, secret: secret)
+        }
     }
-
-    public static func paper(key: String, secret: String) -> Self {
-        Environment(api: "https://paper-api.alpaca.markets/v2", key: key, secret: secret)
-    }
-}
-
-public class AlpacaClient {
 
     enum RequestError: Error {
         case unknown
@@ -38,7 +37,7 @@ public class AlpacaClient {
 
     public let environment: Environment
 
-    private lazy var httpClient = HTTPClient(eventLoopGroupProvider: .shared(Utils.eventLoopGroup))
+    private let httpClient = HTTPClient(eventLoopGroupProvider: .shared(Utils.eventLoopGroup))
 
     init(_ environment: Environment) {
         self.environment = environment

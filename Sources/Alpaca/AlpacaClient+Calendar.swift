@@ -7,22 +7,23 @@
 
 import Foundation
 
-extension AlpacaClient {
-
-    public struct CalendarResponse: Decodable {
+extension Models {
+    public struct Calendar: Decodable {
         public let date: Date
         public let open: String
         public let close: String
     }
+}
 
-    public func calendar(start: String? = nil, end: String? = nil) -> ResponsePublisher<[CalendarResponse]> {
+extension AlpacaClient {
+    public func calendar(start: String? = nil, end: String? = nil) -> ResponsePublisher<[Models.Calendar]> {
         return get("calendar", searchParams: ["start": start, "end": end])
     }
 
-    public func calendar(start: Date? = nil, end: Date? = nil) -> ResponsePublisher<[CalendarResponse]> {
-        return get("calendar", searchParams: [
-            "start": start != nil ? Utils.iso8601DateOnlyFormatter.string(from: start!) : nil,
-            "end": end != nil ? Utils.iso8601DateOnlyFormatter.string(from: end!) : nil
-        ])
+    public func calendar(start: Date? = nil, end: Date? = nil) -> ResponsePublisher<[Models.Calendar]> {
+        return calendar(
+            start: start.map(Utils.iso8601DateOnlyFormatter.string),
+            end: end.map(Utils.iso8601DateOnlyFormatter.string)
+        )
     }
 }
