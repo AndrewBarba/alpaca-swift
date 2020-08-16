@@ -8,7 +8,7 @@
 import Foundation
 
 extension Models {
-    public struct Calendar: Decodable {
+    public struct Calendar: Codable {
         public let date: Date
         public let open: String
         public let close: String

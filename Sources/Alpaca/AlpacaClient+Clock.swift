@@ -8,7 +8,7 @@
 import Foundation
 
 extension Models {
-    public struct Clock: Decodable {
+    public struct Clock: Codable {
         public let timestamp: Date
         public let isOpen: Bool
         public let nextOpen: Date

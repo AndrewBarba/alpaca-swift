@@ -35,6 +35,8 @@ public struct AlpacaClient {
 
     public typealias SearchParams = [String: String?]
 
+    public typealias BodyParams = [String: Any?]
+
     public let environment: Environment
 
     private let httpClient = HTTPClient(eventLoopGroupProvider: .shared(Utils.eventLoopGroup))
@@ -64,11 +66,19 @@ extension AlpacaClient {
         request(.POST, urlPath: urlPath, searchParams: searchParams, body: body)
     }
 
+    public func post<T>(_ urlPath: String, searchParams: SearchParams? = nil, body: BodyParams) -> ResponsePublisher<T> where T: Decodable {
+        request(.POST, urlPath: urlPath, searchParams: searchParams, body: body)
+    }
+
     public func put<T>(_ urlPath: String, searchParams: SearchParams? = nil) -> ResponsePublisher<T> where T: Decodable {
         return request(.PUT, urlPath: urlPath, searchParams: searchParams)
     }
 
     public func put<T, V>(_ urlPath: String, searchParams: SearchParams? = nil, body: V) -> ResponsePublisher<T> where T: Decodable, V: Encodable {
+        request(.PUT, urlPath: urlPath, searchParams: searchParams, body: body)
+    }
+
+    public func put<T>(_ urlPath: String, searchParams: SearchParams? = nil, body: BodyParams) -> ResponsePublisher<T> where T: Decodable {
         request(.PUT, urlPath: urlPath, searchParams: searchParams, body: body)
     }
 
@@ -80,9 +90,22 @@ extension AlpacaClient {
         request(.PATCH, urlPath: urlPath, searchParams: searchParams, body: body)
     }
 
+    public func patch<T>(_ urlPath: String, searchParams: SearchParams? = nil, body: BodyParams) -> ResponsePublisher<T> where T: Decodable {
+        request(.PATCH, urlPath: urlPath, searchParams: searchParams, body: body)
+    }
+
     public func request<T, V>(_ method: HTTPMethod, urlPath: String, searchParams: SearchParams? = nil, body: V) -> ResponsePublisher<T> where T: Decodable, V: Encodable {
         do {
             let data = try Utils.jsonEncoder.encode(body)
+            return request(method, urlPath: urlPath, searchParams: searchParams, body: .data(data))
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+    }
+
+    public func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: SearchParams? = nil, body: BodyParams) -> ResponsePublisher<T> where T: Decodable {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: body.compactMapValues { $0 }, options: [])
             return request(method, urlPath: urlPath, searchParams: searchParams, body: .data(data))
         } catch {
             return Fail(error: error).eraseToAnyPublisher()
@@ -100,7 +123,9 @@ extension AlpacaClient {
 
             let headers = HTTPHeaders([
                 ("APCA-API-KEY-ID", self.environment.key),
-                ("APCA-API-SECRET-KEY", self.environment.secret)
+                ("APCA-API-SECRET-KEY", self.environment.secret),
+                ("Content-Type", "application/json"),
+                ("User-Agent", "alpaca-swift/1.0")
             ])
 
             let httpRequest = try HTTPClient.Request(url: url, method: method, headers: headers, body: body)
