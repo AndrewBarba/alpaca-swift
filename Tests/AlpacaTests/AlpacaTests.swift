@@ -1,12 +1,6 @@
 import XCTest
-@testable import Alpaca
-
-#if canImport(Combine)
-import Combine
-#else
 import OpenCombine
-import OpenCombineFoundation
-#endif
+@testable import Alpaca
 
 final class AlpacaTests: XCTestCase {
 

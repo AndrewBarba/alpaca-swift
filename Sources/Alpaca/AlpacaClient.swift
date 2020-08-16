@@ -2,18 +2,17 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import NIOHTTP1
-#if canImport(Combine)
-import Combine
-#else
 import OpenCombine
-import OpenCombineFoundation
-#endif
 
 public struct AlpacaClient {
     public struct Environment {
         public let api: String
         public let key: String
         public let secret: String
+
+        public static func data(key: String, secret: String) -> Self {
+            Environment(api: "https://data.alpaca.markets/v1", key: key, secret: secret)
+        }
 
         public static func production(key: String, secret: String) -> Self {
             Environment(api: "https://api.alpaca.markets/v2", key: key, secret: secret)
