@@ -93,6 +93,36 @@ final class AlpacaTests: XCTestCase {
         wait(for: [exp], timeout: 5)
     }
 
+    func testPositionsRequest() {
+        let exp = XCTestExpectation()
+        client.positions()
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
+    func testClosePositionsRequest() {
+        let exp = XCTestExpectation()
+        client.closePositions()
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
+    func testCancelOrdersRequest() {
+        let exp = XCTestExpectation()
+        client.cancelOrders()
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
     static var allTests = [
         ("testAccountRequest", testAssetsRequest),
         ("testAccountConfigurationsRequest", testAccountConfigurationsRequest),
@@ -102,6 +132,9 @@ final class AlpacaTests: XCTestCase {
         ("testClientAPI", testClientAPI),
         ("testCalendarRequest", testCalendarRequest),
         ("testClockRequest", testClockRequest),
-        ("testPortfolioHistoryRequest", testPortfolioHistoryRequest)
+        ("testPortfolioHistoryRequest", testPortfolioHistoryRequest),
+        ("testPositionsRequest", testPositionsRequest),
+        ("testClosePositionsRequest", testClosePositionsRequest),
+        ("testCancelOrdersRequest", testCancelOrdersRequest)
     ]
 }

@@ -93,6 +93,10 @@ extension AlpacaClient {
         request(.PATCH, urlPath: urlPath, searchParams: searchParams, body: body)
     }
 
+    public func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: SearchParams? = nil) -> ResponsePublisher<T> where T: Decodable {
+        return request(method, urlPath: urlPath, searchParams: searchParams, body: nil)
+    }
+
     public func request<T, V>(_ method: HTTPMethod, urlPath: String, searchParams: SearchParams? = nil, body: V) -> ResponsePublisher<T> where T: Decodable, V: Encodable {
         do {
             let data = try Utils.jsonEncoder.encode(body)
@@ -111,7 +115,7 @@ extension AlpacaClient {
         }
     }
 
-    public func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: SearchParams? = nil, body: HTTPClient.Body? = nil) -> ResponsePublisher<T> where T: Decodable {
+    private func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: SearchParams? = nil, body: HTTPClient.Body? = nil) -> ResponsePublisher<T> where T: Decodable {
         do {
             var components = URLComponents(string: "\(environment.api)/\(urlPath)")
             components?.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)

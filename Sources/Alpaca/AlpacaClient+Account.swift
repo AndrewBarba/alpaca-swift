@@ -8,7 +8,7 @@
 import Foundation
 
 extension Models {
-    public struct Account: Codable {
+    public struct Account: Codable, Identifiable {
         public enum Status: String, Codable, CaseIterable {
             case onboarding = "ONBOARDING"
             case submissionFailed = "SUBMISSION_FAILED"

@@ -8,7 +8,11 @@
 import Foundation
 
 extension Models {
-    public struct Asset: Codable {
+    public struct Asset: Codable, Identifiable {
+        public enum Class: String, Codable, CaseIterable {
+            case usEquity = "us_equity"
+        }
+
         public enum Exchange: String, Codable, CaseIterable {
             case amex = "AMEX"
             case arca = "ARCA"
@@ -25,7 +29,7 @@ extension Models {
         }
 
         public let id: UUID
-        public let `class`: String
+        public let `class`: Class
         public let exchange: Exchange
         public let symbol: String
         public let name: String
@@ -38,8 +42,8 @@ extension Models {
 }
 
 extension AlpacaClient {
-    public func assets(status: Models.Asset.Status? = nil, assetClass: String? = nil) -> ResponsePublisher<[Models.Asset]> {
-        return get("assets", searchParams: ["status": status?.rawValue, "asset_class": assetClass])
+    public func assets(status: Models.Asset.Status? = nil, assetClass: Models.Asset.Class? = nil) -> ResponsePublisher<[Models.Asset]> {
+        return get("assets", searchParams: ["status": status?.rawValue, "asset_class": assetClass?.rawValue])
     }
 
     public func asset(id: String) -> ResponsePublisher<Models.Asset> {
