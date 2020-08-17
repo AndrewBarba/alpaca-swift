@@ -15,4 +15,9 @@ extension Models {
         public let status: Int
         public let body: T
     }
+
+    public enum SortDirection: String, Codable, CaseIterable {
+        case asc = "asc"
+        case desc = "desc"
+    }
 }

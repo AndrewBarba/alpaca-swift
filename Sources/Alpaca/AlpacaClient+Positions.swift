@@ -19,7 +19,7 @@ extension Models {
         public let exchange: Models.Asset.Exchange
         public let assetClass: Models.Asset.Class
         public let avgEntryPrice: NumericString<Double>
-        public let qty: NumericString<Int>
+        public let qty: NumericString<Double>
         public let side: Side
         public let marketValue: NumericString<Double>
         public let costBasis: NumericString<Double>

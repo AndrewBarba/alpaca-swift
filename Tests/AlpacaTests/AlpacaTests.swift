@@ -113,6 +113,26 @@ final class AlpacaTests: XCTestCase {
         wait(for: [exp], timeout: 5)
     }
 
+    func testOrdersRequest() {
+        let exp = XCTestExpectation()
+        client.orders()
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
+    func testCreateOrderRequest() {
+        let exp = XCTestExpectation()
+        client.createOrder(symbol: "AAPL", qty: 2, side: .buy, type: .market, timeInForce: .day)
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
     func testCancelOrdersRequest() {
         let exp = XCTestExpectation()
         client.cancelOrders()
@@ -135,6 +155,8 @@ final class AlpacaTests: XCTestCase {
         ("testPortfolioHistoryRequest", testPortfolioHistoryRequest),
         ("testPositionsRequest", testPositionsRequest),
         ("testClosePositionsRequest", testClosePositionsRequest),
+        ("testOrdersRequest", testOrdersRequest),
+        ("testCreateOrderRequest", testCreateOrderRequest),
         ("testCancelOrdersRequest", testCancelOrdersRequest)
     ]
 }
