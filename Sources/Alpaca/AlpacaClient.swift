@@ -148,7 +148,9 @@ extension AlpacaClient {
                     throw RequestError.status(response.status)
                 }
                 guard let body = response.body, let bytes = body.getBytes(at: 0, length: body.readableBytes) else {
-                    throw RequestError.unknown
+                    let json: [String: String] = [:]
+                    let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                    return try Utils.jsonDecoder.decode(T.self, from: data)
                 }
                 let data = Data(bytes)
                 return try Utils.jsonDecoder.decode(T.self, from: data)

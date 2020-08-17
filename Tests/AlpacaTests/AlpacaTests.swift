@@ -152,6 +152,29 @@ final class AlpacaTests: XCTestCase {
         wait(for: [exp], timeout: 5)
     }
 
+    func testWatchlistsRequest() {
+        let exp = XCTestExpectation()
+        client.watchlists()
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
+    func testCreateAndDeleteWatchlistRequest() {
+        let exp = XCTestExpectation()
+        client.createWatchlist(name: "[Swift] \(UUID().uuidString)", symbols: ["AAPL"])
+            .assertNoFailure()
+            .print()
+            .flatMap {
+                self.client.deleteWatchlist(id: $0.id).assertNoFailure()
+            }
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
     static var allTests = [
         ("testAccountRequest", testAssetsRequest),
         ("testAccountConfigurationsRequest", testAccountConfigurationsRequest),
@@ -166,6 +189,8 @@ final class AlpacaTests: XCTestCase {
         ("testClosePositionsRequest", testClosePositionsRequest),
         ("testOrdersRequest", testOrdersRequest),
         ("testCreateOrderRequest", testCreateOrderRequest),
-        ("testCancelOrdersRequest", testCancelOrdersRequest)
+        ("testCancelOrdersRequest", testCancelOrdersRequest),
+        ("testWatchlistsRequest", testWatchlistsRequest),
+        ("testCreateAndDeleteWatchlistRequest", testCreateAndDeleteWatchlistRequest)
     ]
 }

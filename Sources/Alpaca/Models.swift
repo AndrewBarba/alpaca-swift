@@ -19,4 +19,6 @@ extension Models {
         case asc = "asc"
         case desc = "desc"
     }
+
+    public struct EmptyResponse: Codable {}
 }
