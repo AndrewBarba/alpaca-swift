@@ -14,7 +14,7 @@ public struct AlpacaClient {
             Environment(api: "https://data.alpaca.markets/v1", key: key, secret: secret)
         }
 
-        public static func production(key: String, secret: String) -> Self {
+        public static func live(key: String, secret: String) -> Self {
             Environment(api: "https://api.alpaca.markets/v2", key: key, secret: secret)
         }
 
