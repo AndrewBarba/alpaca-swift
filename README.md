@@ -4,7 +4,7 @@ A fully-typed, Linux compatible, [Alpaca](https://alpaca.markets) library writte
 
 #### Features:
 
-- Swift 5
+- Swift Package Manager
 - 100% Combine API
 - SwiftNIO HTTP client
 - 100% Unit Test Coverage
