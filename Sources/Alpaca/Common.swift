@@ -1,11 +1,21 @@
 //
-//  Protocols.swift
+//  swift
 //  
 //
 //  Created by Andrew Barba on 8/15/20.
 //
 
 import Foundation
+
+public struct MultiResponse<T>: Codable where T: Codable {
+    public let status: Int
+    public let body: T
+}
+
+public enum SortDirection: String, Codable, CaseIterable {
+    case asc = "asc"
+    case desc = "desc"
+}
 
 public protocol StringRepresentable: CustomStringConvertible {
     init?(_ string: String)

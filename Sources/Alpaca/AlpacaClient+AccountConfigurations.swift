@@ -7,36 +7,34 @@
 
 import Foundation
 
-extension Models {
-    public struct AccountConfigurations: Codable {
-        public enum DayTradeBuyingPowerCheck: String, Codable, CaseIterable {
-            case both = "both"
-            case entry = "entry"
-            case exit = "exit"
-        }
-
-        public enum TradeConfirmEmail: String, Codable, CaseIterable {
-            case all = "all"
-            case none = "none"
-        }
-
-        public var dtbpCheck: DayTradeBuyingPowerCheck
-        public var noShorting: Bool
-        public var suspendTrade: Bool
-        public var tradeConfirmEmail: TradeConfirmEmail
+public struct AccountConfigurations: Codable {
+    public enum DayTradeBuyingPowerCheck: String, Codable, CaseIterable {
+        case both = "both"
+        case entry = "entry"
+        case exit = "exit"
     }
+
+    public enum TradeConfirmEmail: String, Codable, CaseIterable {
+        case all = "all"
+        case none = "none"
+    }
+
+    public var dtbpCheck: DayTradeBuyingPowerCheck
+    public var noShorting: Bool
+    public var suspendTrade: Bool
+    public var tradeConfirmEmail: TradeConfirmEmail
 }
 
 extension AlpacaClient {
-    public func accountConfigurations() -> ResponsePublisher<Models.AccountConfigurations> {
+    public func accountConfigurations() -> ResponsePublisher<AccountConfigurations> {
         return get("account/configurations")
     }
 
-    public func saveAccountConfigurations(_ configurations: Models.AccountConfigurations) -> ResponsePublisher<Models.AccountConfigurations> {
+    public func saveAccountConfigurations(_ configurations: AccountConfigurations) -> ResponsePublisher<AccountConfigurations> {
         return patch("account/configurations", body: configurations)
     }
 
-    public func saveAccountConfigurations(dtbpCheck: Models.AccountConfigurations.DayTradeBuyingPowerCheck? = nil, noShorting: Bool? = nil, suspendTrade: Bool? = nil, tradeConfirmEmail: Models.AccountConfigurations.TradeConfirmEmail? = nil) -> ResponsePublisher<Models.AccountConfigurations> {
+    public func saveAccountConfigurations(dtbpCheck: AccountConfigurations.DayTradeBuyingPowerCheck? = nil, noShorting: Bool? = nil, suspendTrade: Bool? = nil, tradeConfirmEmail: AccountConfigurations.TradeConfirmEmail? = nil) -> ResponsePublisher<AccountConfigurations> {
         return patch("account/configurations", body: [
             "dtbp_check": dtbpCheck?.rawValue,
             "no_shorting": noShorting,

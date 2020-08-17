@@ -7,17 +7,15 @@
 
 import Foundation
 
-extension Models {
-    public struct Clock: Codable {
-        public let timestamp: Date
-        public let isOpen: Bool
-        public let nextOpen: Date
-        public let nextClose: Date
-    }
+public struct Clock: Codable {
+    public let timestamp: Date
+    public let isOpen: Bool
+    public let nextOpen: Date
+    public let nextClose: Date
 }
 
 extension AlpacaClient {
-    public func clock() -> ResponsePublisher<Models.Clock> {
+    public func clock() -> ResponsePublisher<Clock> {
         return get("clock")
     }
 }

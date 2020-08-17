@@ -14,7 +14,7 @@ internal enum Utils {
 
     static let iso8601DateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.calendar = Foundation.Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -23,7 +23,7 @@ internal enum Utils {
 
     static let iso8601DateOnlyFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.calendar = Foundation.Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd"
@@ -32,7 +32,7 @@ internal enum Utils {
 
     static let iso8601DateMillisecondsFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.calendar = Foundation.Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
