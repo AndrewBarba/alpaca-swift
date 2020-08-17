@@ -44,7 +44,7 @@ public struct AlpacaClient {
 
     private let httpClient = HTTPClient(eventLoopGroupProvider: .shared(Utils.eventLoopGroup))
 
-    init(_ environment: Environment) {
+    public init(_ environment: Environment) {
         self.environment = environment
     }
 }
