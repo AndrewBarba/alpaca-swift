@@ -2,9 +2,18 @@ import XCTest
 import OpenCombine
 @testable import Alpaca
 
+enum EnvironmentVariables: String {
+    case ALPACA_API_KEY
+    case ALPACA_API_SECRET
+
+    var value: String {
+        return ProcessInfo.processInfo.environment[rawValue] ?? ""
+    }
+}
+
 final class AlpacaTests: XCTestCase {
 
-    let client = AlpacaClient(.paper(key: "PKK2C6KSTTVGJ039BQ6B", secret: "FCWBZhzJiobxDpDjThXZFeCfYgZRXJ97OxiDWatu"))
+    let client = AlpacaClient(.paper(key: EnvironmentVariables.ALPACA_API_KEY.value, secret: EnvironmentVariables.ALPACA_API_SECRET.value))
 
     private var bag = Set<AnyCancellable>()
 

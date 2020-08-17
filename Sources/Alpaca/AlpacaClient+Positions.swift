@@ -23,12 +23,12 @@ extension Models {
         public let side: Side
         public let marketValue: NumericString<Double>
         public let costBasis: NumericString<Double>
-        public let unrealizedPnl: NumericString<Double>
+        public let unrealizedPl: NumericString<Double>
         public let unrealizedPlpc: NumericString<Double>
         public let unrealizedIntradayPl: NumericString<Double>
         public let unrealizedIntradayPlpc: NumericString<Double>
         public let currentPrice: NumericString<Double>
-        public let lastDayPrice: NumericString<Double>
+        public let lastdayPrice: NumericString<Double>
         public let changeToday: NumericString<Double>
     }
 }
