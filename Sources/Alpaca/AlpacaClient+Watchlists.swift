@@ -59,11 +59,11 @@ extension AlpacaClient {
         return delete("watchlists/\(id.uuidString)/\(symbol)")
     }
 
-    public func deleteWatchlist(id: String) -> ResponsePublisher<Models.EmptyResponse> {
+    public func deleteWatchlist(id: String) -> EmptyResponsePublisher {
         return delete("watchlists/\(id)")
     }
 
-    public func deleteWatchlist(id: UUID) -> ResponsePublisher<Models.EmptyResponse> {
+    public func deleteWatchlist(id: UUID) -> EmptyResponsePublisher {
         return delete("watchlists/\(id.uuidString)")
     }
 }

@@ -24,13 +24,17 @@ public struct AlpacaClient {
     }
 
     enum RequestError: Error {
-        case unknown
         case invalidURL
-        case invalidDate
         case status(HTTPResponseStatus)
     }
 
+    public struct EmptyResponse: Decodable {
+        public static let jsonData = try! JSONSerialization.data(withJSONObject: [:], options: [])
+    }
+
     public typealias ResponsePublisher<T: Decodable> = AnyPublisher<T, Error>
+
+    public typealias EmptyResponsePublisher = ResponsePublisher<EmptyResponse>
 
     public typealias SearchParams = [String: String?]
 
@@ -148,9 +152,7 @@ extension AlpacaClient {
                     throw RequestError.status(response.status)
                 }
                 guard let body = response.body, let bytes = body.getBytes(at: 0, length: body.readableBytes) else {
-                    let json: [String: String] = [:]
-                    let data = try JSONSerialization.data(withJSONObject: json, options: [])
-                    return try Utils.jsonDecoder.decode(T.self, from: data)
+                    return try Utils.jsonDecoder.decode(T.self, from: EmptyResponse.jsonData)
                 }
                 let data = Data(bytes)
                 return try Utils.jsonDecoder.decode(T.self, from: data)
