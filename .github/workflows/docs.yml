@@ -13,6 +13,7 @@ jobs:
         with:
           inputs: "Sources"
           module-name: Alpaca
+          format: "html"
           output: "Documentation"
       - name: Upload Documentation to Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@v1
