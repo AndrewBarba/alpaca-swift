@@ -5,7 +5,9 @@ import PackageDescription
 let package = Package(
     name: "Alpaca",
     platforms: [
-       .macOS(.v10_15)
+        .iOS(.v12),
+        .macOS(.v10_15),
+        .tvOS(.v12)
     ],
     products: [
         .library(name: "Alpaca", targets: ["Alpaca"])
