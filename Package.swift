@@ -30,5 +30,6 @@ let package = Package(
             name: "AlpacaTests",
             dependencies: ["Alpaca"]
         )
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
