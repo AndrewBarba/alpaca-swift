@@ -2,9 +2,9 @@ import XCTest
 import OpenCombine
 @testable import Alpaca
 
-enum EnvironmentVariables: String {
-    case ALPACA_API_KEY
-    case ALPACA_API_SECRET
+enum Environment: String {
+    case alpacaApiKey = "ALPACA_API_KEY"
+    case alpacaApiSecret = "ALPACA_API_SECRET"
 
     var value: String {
         return ProcessInfo.processInfo.environment[rawValue] ?? ""
@@ -13,7 +13,8 @@ enum EnvironmentVariables: String {
 
 final class AlpacaTests: XCTestCase {
 
-    let client = AlpacaClient(.paper(key: EnvironmentVariables.ALPACA_API_KEY.value, secret: EnvironmentVariables.ALPACA_API_SECRET.value))
+    let client = AlpacaClient(.paper(key: Environment.alpacaApiKey.value, secret: Environment.alpacaApiSecret.value))
+    let data = AlpacaClient(.data(key: Environment.alpacaApiKey.value, secret: Environment.alpacaApiSecret.value))
 
     private var bag = Set<AnyCancellable>()
 
@@ -175,6 +176,26 @@ final class AlpacaTests: XCTestCase {
         wait(for: [exp], timeout: 5)
     }
 
+    func testDataBarsRequest() {
+        let exp = XCTestExpectation()
+        data.bars(.oneDay, symbol: "AAPL", limit: 1)
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
+    func testDataBarsMultiRequest() {
+        let exp = XCTestExpectation()
+        data.bars(.oneDay, symbols: ["AAPL", "FSLY"], limit: 1)
+            .assertNoFailure()
+            .print()
+            .sink { _ in exp.fulfill() }
+            .store(in: &bag)
+        wait(for: [exp], timeout: 5)
+    }
+
     static var allTests = [
         ("testAccountRequest", testAssetsRequest),
         ("testAccountConfigurationsRequest", testAccountConfigurationsRequest),
@@ -191,6 +212,8 @@ final class AlpacaTests: XCTestCase {
         ("testCreateOrderRequest", testCreateOrderRequest),
         ("testCancelOrdersRequest", testCancelOrdersRequest),
         ("testWatchlistsRequest", testWatchlistsRequest),
-        ("testCreateAndDeleteWatchlistRequest", testCreateAndDeleteWatchlistRequest)
+        ("testCreateAndDeleteWatchlistRequest", testCreateAndDeleteWatchlistRequest),
+        ("testDataBarsRequest", testDataBarsRequest),
+        ("testDataBarsMultiRequest", testDataBarsMultiRequest)
     ]
 }
