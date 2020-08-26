@@ -16,12 +16,23 @@ public struct Bar: Codable {
         case oneDay = "1D"
     }
 
-    public let t: Double
-    public let o: Double
-    public let h: Double
-    public let l: Double
-    public let c: Double
-    public let v: Double
+    private let t: Double
+    public var timeframe: Double { t }
+
+    private let o: Double
+    public var open: Double { o }
+
+    private let h: Double
+    public var high: Double { h }
+
+    private let l: Double
+    public var low: Double { l }
+
+    private let c: Double
+    public var close: Double { c }
+
+    private let v: Double
+    public var volume: Double { v }
 }
 
 extension AlpacaClient {
