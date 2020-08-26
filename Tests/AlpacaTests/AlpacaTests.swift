@@ -14,7 +14,6 @@ enum Environment: String {
 final class AlpacaTests: XCTestCase {
 
     let client = AlpacaClient(.paper(key: Environment.alpacaApiKey.value, secret: Environment.alpacaApiSecret.value))
-    let data = AlpacaClient(.data(key: Environment.alpacaApiKey.value, secret: Environment.alpacaApiSecret.value))
 
     private var bag = Set<AnyCancellable>()
 
@@ -178,7 +177,7 @@ final class AlpacaTests: XCTestCase {
 
     func testDataBarsRequest() {
         let exp = XCTestExpectation()
-        data.bars(.oneDay, symbol: "AAPL", limit: 1)
+        client.data.bars(.oneDay, symbol: "AAPL", limit: 1)
             .assertNoFailure()
             .print()
             .sink { _ in exp.fulfill() }
@@ -188,7 +187,7 @@ final class AlpacaTests: XCTestCase {
 
     func testDataBarsMultiRequest() {
         let exp = XCTestExpectation()
-        data.bars(.oneDay, symbols: ["AAPL", "FSLY"], limit: 1)
+        client.data.bars(.oneDay, symbols: ["AAPL", "FSLY"], limit: 1)
             .assertNoFailure()
             .print()
             .sink { _ in exp.fulfill() }

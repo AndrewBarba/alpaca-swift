@@ -5,12 +5,15 @@
 //  Created by Andrew Barba on 8/15/20.
 //
 
+import AsyncHTTPClient
 import Foundation
 import NIO
 
 internal enum Utils {
 
     static let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
+
+    static let httpClient = HTTPClient(eventLoopGroupProvider: .shared(Self.eventLoopGroup))
 
     static let iso8601DateFormatter: DateFormatter = {
         let formatter = DateFormatter()

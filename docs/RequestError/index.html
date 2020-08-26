@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpaca - Calendar</title>
+    <title>Alpaca - RequestError</title>
     <link rel="stylesheet" type="text/css" href="/alpaca-swift/all.css" media="all" />
 </head>
 <body>
@@ -26,18 +26,18 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#calendar.date">date</a></li><li class="variable"><a href="#calendar.open">open</a></li><li class="variable"><a href="#calendar.close">close</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#requesterror.invalidurl">invalid​URL</a></li><li class="case"><a href="#requesterror.status">status</a></li></ul></li></ol>
         </div>
     </nav>
 
     <main>
         <article>
             <h1>
-    <small>Structure</small>
-    <code class="name">Calendar</code>
+    <small>Enumeration</small>
+    <code class="name">Request​Error</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Calendar</span>: <span class="type">Codable</span></code></pre></body></html>
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">RequestError</span></code></pre></body></html>
 <section id="relationships">
     <h2 hidden>Relationships</h2>
         <figure>
@@ -51,27 +51,27 @@
  viewBox="0.00 0.00 872.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-112 868,-112 868,4 -4,4"/>
-<!-- Calendar -->
-<g id="node1" class="node structure current">
-<title>Calendar</title>
-<g id="a_node1"><a xlink:href="/alpaca-swift/Calendar" xlink:title="Calendar">
+<!-- RequestError -->
+<g id="node1" class="node enumeration current">
+<title>RequestError</title>
+<g id="a_node1"><a xlink:href="/alpaca-swift/RequestError" xlink:title="RequestError">
 <path fill="none" stroke="black" stroke-width="3" d="M528,-108C528,-108 336,-108 336,-108 330,-108 324,-102 324,-96 324,-96 324,-84 324,-84 324,-78 330,-72 336,-72 336,-72 528,-72 528,-72 534,-72 540,-78 540,-84 540,-84 540,-96 540,-96 540,-102 534,-108 528,-108"/>
-<text text-anchor="middle" x="432" y="-86.3" font-family="Menlo" font-size="14.00">Calendar</text>
+<text text-anchor="middle" x="432" y="-86.3" font-family="Menlo" font-size="14.00">RequestError</text>
 </a>
 </g>
 </g>
-<!-- Codable -->
+<!-- Error -->
 <g id="node2" class="node unknown">
-<title>Codable</title>
-<g id="a_node2"><a xlink:href="/alpaca-swift/Codable" xlink:title="Codable">
+<title>Error</title>
+<g id="a_node2"><a xlink:href="/alpaca-swift/Error" xlink:title="Error">
 <path fill="none" stroke="black" d="M528,-36C528,-36 336,-36 336,-36 330,-36 324,-30 324,-24 324,-24 324,-12 324,-12 324,-6 330,0 336,0 336,0 528,0 528,0 534,0 540,-6 540,-12 540,-12 540,-24 540,-24 540,-30 534,-36 528,-36"/>
-<text text-anchor="middle" x="432" y="-14.3" font-family="Menlo" font-size="14.00">Codable</text>
+<text text-anchor="middle" x="432" y="-14.3" font-family="Menlo" font-size="14.00">Error</text>
 </a>
 </g>
 </g>
-<!-- Calendar&#45;&gt;Codable -->
+<!-- RequestError&#45;&gt;Error -->
 <g id="edge1" class="edge conformsTo">
-<title>Calendar&#45;&gt;Codable</title>
+<title>RequestError&#45;&gt;Error</title>
 <path fill="none" stroke="black" d="M432,-71.7C432,-63.98 432,-54.71 432,-46.11"/>
 <polygon fill="black" stroke="black" points="435.5,-46.1 432,-36.1 428.5,-46.1 435.5,-46.1"/>
 </g>
@@ -79,33 +79,27 @@
 </svg>
 
 
-    <figcaption hidden>Inheritance graph for Calendar.</figcaption>
+    <figcaption hidden>Inheritance graph for RequestError.</figcaption>
 </figure>
         <h3>Conforms To</h3>
 <dl>
-    <dt class="unknown"><code>Codable</code></dt>
+    <dt class="unknown"><code>Error</code></dt>
 </dl>
 </section>
-    <section id="properties">
-        <h2>Properties</h2>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
 
-        <div role="article" class="variable" id="calendar.date">
+        <div role="article" class="case" id="requesterror.invalidurl">
     <h3>
-        <code>date</code>
+        <code>invalid​URL</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">date</span>: <span class="type">Date</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">invalidURL</span></code></pre></body></html>
 </div>
-<div role="article" class="variable" id="calendar.open">
+<div role="article" class="case" id="requesterror.status">
     <h3>
-        <code>open</code>
+        <code>status</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">open</span>: <span class="type">String</span></code></pre></body></html>
-</div>
-<div role="article" class="variable" id="calendar.close">
-    <h3>
-        <code>close</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">close</span>: <span class="type">String</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">status</span>(: <span class="type">HTTPResponseStatus</span>)</code></pre></body></html>
 </div>
     </section>
 

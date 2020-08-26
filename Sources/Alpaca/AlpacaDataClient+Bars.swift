@@ -35,7 +35,7 @@ public struct Bar: Codable {
     public var volume: Double { v }
 }
 
-extension AlpacaClient {
+extension AlpacaDataClient {
 
     public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) -> ResponsePublisher<[String: [Bar]]> {
         return get("bars/\(timeframe.rawValue)", searchParams: [
