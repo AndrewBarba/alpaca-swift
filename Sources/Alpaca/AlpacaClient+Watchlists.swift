@@ -17,51 +17,51 @@ public struct Watchlist: Codable, Identifiable {
 }
 
 extension AlpacaClient {
-    public func watchlists() -> ResponsePublisher<[Watchlist]> {
-        return get("watchlists")
+    public func watchlists() async throws -> [Watchlist] {
+        return try await get("watchlists")
     }
 
-    public func createWatchlist(name: String, symbols: [String]) -> ResponsePublisher<Watchlist> {
-        return post("watchlists", body: ["name": name, "symbols": symbols])
+    public func createWatchlist(name: String, symbols: [String]) async throws -> Watchlist {
+        return try await post("watchlists", body: ["name": name, "symbols": symbols])
     }
 
-    public func watchlist(id: String) -> ResponsePublisher<Watchlist> {
-        return get("watchlists/\(id)")
+    public func watchlist(id: String) async throws -> Watchlist {
+        return try await get("watchlists/\(id)")
     }
 
-    public func watchlist(id: UUID) -> ResponsePublisher<Watchlist> {
-        return get("watchlists/\(id.uuidString)")
+    public func watchlist(id: UUID) async throws -> Watchlist {
+        return try await get("watchlists/\(id.uuidString)")
     }
 
-    public func updateWatchlist(id: String, name: String? = nil, symbols: [String]? = nil) -> ResponsePublisher<Watchlist> {
-        return put("watchlists/\(id)", body: ["name": name, "symbols": symbols])
+    public func updateWatchlist(id: String, name: String? = nil, symbols: [String]? = nil) async throws -> Watchlist {
+        return try await put("watchlists/\(id)", body: ["name": name, "symbols": symbols])
     }
 
-    public func updateWatchlist(id: UUID, name: String? = nil, symbols: [String]? = nil) -> ResponsePublisher<Watchlist> {
-        return put("watchlists/\(id.uuidString)", body: ["name": name, "symbols": symbols])
+    public func updateWatchlist(id: UUID, name: String? = nil, symbols: [String]? = nil) async throws -> Watchlist {
+        return try await put("watchlists/\(id.uuidString)", body: ["name": name, "symbols": symbols])
     }
 
-    public func updateWatchlist(id: String, add symbol: String) -> ResponsePublisher<Watchlist> {
-        return post("watchlists/\(id)", body: ["symbol": symbol])
+    public func updateWatchlist(id: String, add symbol: String) async throws -> Watchlist {
+        return try await post("watchlists/\(id)", body: ["symbol": symbol])
     }
 
-    public func updateWatchlist(id: UUID, add symbol: String) -> ResponsePublisher<Watchlist> {
-        return post("watchlists/\(id.uuidString)", body: ["symbol": symbol])
+    public func updateWatchlist(id: UUID, add symbol: String) async throws -> Watchlist {
+        return try await post("watchlists/\(id.uuidString)", body: ["symbol": symbol])
     }
 
-    public func updateWatchlist(id: String, remove symbol: String) -> ResponsePublisher<Watchlist> {
-        return delete("watchlists/\(id)/\(symbol)")
+    public func updateWatchlist(id: String, remove symbol: String) async throws -> Watchlist {
+        return try await delete("watchlists/\(id)/\(symbol)")
     }
 
-    public func updateWatchlist(id: UUID, remove symbol: String) -> ResponsePublisher<Watchlist> {
-        return delete("watchlists/\(id.uuidString)/\(symbol)")
+    public func updateWatchlist(id: UUID, remove symbol: String) async throws -> Watchlist {
+        return try await delete("watchlists/\(id.uuidString)/\(symbol)")
     }
 
-    public func deleteWatchlist(id: String) -> EmptyResponsePublisher {
-        return delete("watchlists/\(id)")
+    public func deleteWatchlist(id: String) async throws -> EmptyResponse {
+        return try await delete("watchlists/\(id)")
     }
 
-    public func deleteWatchlist(id: UUID) -> EmptyResponsePublisher {
-        return delete("watchlists/\(id.uuidString)")
+    public func deleteWatchlist(id: UUID) async throws -> EmptyResponse {
+        return try await delete("watchlists/\(id.uuidString)")
     }
 }

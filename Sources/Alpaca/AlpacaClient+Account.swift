@@ -46,7 +46,7 @@ public struct Account: Codable, Identifiable {
 }
 
 extension AlpacaClient {
-    public func account() -> ResponsePublisher<Account> {
-        return get("account")
+    public func account() async throws -> Account {
+        return try await get("account")
     }
 }

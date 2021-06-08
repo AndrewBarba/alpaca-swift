@@ -1,29 +1,23 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.5
 
 import PackageDescription
 
 let package = Package(
     name: "Alpaca",
     platforms: [
-        .iOS(.v12),
-        .macOS(.v10_15),
-        .tvOS(.v12)
+        .iOS(.init("15.0"))
     ],
     products: [
         .library(name: "Alpaca", targets: ["Alpaca"])
     ],
     dependencies: [
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.0.0"),
-        .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.10.0")
     ],
     targets: [
         .target(
             name: "Alpaca",
             dependencies: [
-                .product(name: "AsyncHTTPClient", package: "async-http-client"),
-                .product(name: "OpenCombine", package: "OpenCombine"),
-                .product(name: "OpenCombineDispatch", package: "OpenCombine"),
-                .product(name: "OpenCombineFoundation", package: "OpenCombine")
+                .product(name: "AsyncHTTPClient", package: "async-http-client")
             ]
         ),
         .testTarget(
@@ -31,5 +25,5 @@ let package = Package(
             dependencies: ["Alpaca"]
         )
     ],
-    swiftLanguageVersions: [.v5]
+    swiftLanguageVersions: [.version("5.5")]
 )

@@ -15,7 +15,7 @@ public struct Clock: Codable {
 }
 
 extension AlpacaClient {
-    public func clock() -> ResponsePublisher<Clock> {
-        return get("clock")
+    public func clock() async throws -> Clock {
+        return try await get("clock")
     }
 }

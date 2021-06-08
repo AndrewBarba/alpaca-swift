@@ -14,12 +14,12 @@ public struct Calendar: Codable {
 }
 
 extension AlpacaClient {
-    public func calendar(start: String? = nil, end: String? = nil) -> ResponsePublisher<[Calendar]> {
-        return get("calendar", searchParams: ["start": start, "end": end])
+    public func calendar(start: String? = nil, end: String? = nil) async throws -> [Calendar] {
+        return try await get("calendar", searchParams: ["start": start, "end": end])
     }
 
-    public func calendar(start: Date? = nil, end: Date? = nil) -> ResponsePublisher<[Calendar]> {
-        return calendar(
+    public func calendar(start: Date? = nil, end: Date? = nil) async throws -> [Calendar] {
+        return try await calendar(
             start: start.map(Utils.iso8601DateOnlyFormatter.string),
             end: end.map(Utils.iso8601DateOnlyFormatter.string)
         )

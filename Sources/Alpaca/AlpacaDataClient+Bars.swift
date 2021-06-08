@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import OpenCombine
 
 public struct Bar: Codable {
     public enum Timeframe: String, CaseIterable {
@@ -37,8 +36,8 @@ public struct Bar: Codable {
 
 extension AlpacaDataClient {
 
-    public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) -> ResponsePublisher<[String: [Bar]]> {
-        return get("bars/\(timeframe.rawValue)", searchParams: [
+    public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [Bar]] {
+        return try await get("bars/\(timeframe.rawValue)", searchParams: [
             "symbols": symbols.joined(separator: ","),
             "limit": limit.map(String.init),
             "start": start.map(Utils.iso8601DateFormatter.string),
@@ -48,17 +47,16 @@ extension AlpacaDataClient {
         ])
     }
 
-    public func bars(_ timeframe: Bar.Timeframe, symbol: String, limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) -> ResponsePublisher<[Bar]> {
-        return bars(timeframe, symbols: [symbol], limit: limit, start: start, end: end, after: after, until: until)
-            .map { $0[symbol] ?? [] }
-            .eraseToAnyPublisher()
+    public func bars(_ timeframe: Bar.Timeframe, symbol: String, limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [Bar] {
+        let res = try await bars(timeframe, symbols: [symbol], limit: limit, start: start, end: end, after: after, until: until)
+        return res[symbol, default: []]
     }
 
-    public func bars(_ timeframe: Bar.Timeframe, assets: [Asset], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) -> ResponsePublisher<[String: [Bar]]> {
-        return bars(timeframe, symbols: assets.map(\.symbol), limit: limit, start: start, end: end, after: after, until: until)
+    public func bars(_ timeframe: Bar.Timeframe, assets: [Asset], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [Bar]] {
+        return try await bars(timeframe, symbols: assets.map(\.symbol), limit: limit, start: start, end: end, after: after, until: until)
     }
 
-    public func bars(_ timeframe: Bar.Timeframe, asset: Asset, limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) -> ResponsePublisher<[Bar]> {
-        return bars(timeframe, symbol: asset.symbol, limit: limit, start: start, end: end, after: after, until: until)
+    public func bars(_ timeframe: Bar.Timeframe, asset: Asset, limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [Bar] {
+        return try await bars(timeframe, symbol: asset.symbol, limit: limit, start: start, end: end, after: after, until: until)
     }
 }
