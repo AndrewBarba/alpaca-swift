@@ -5,7 +5,6 @@
 //  Created by Andrew Barba on 8/25/20.
 //
 
-import AsyncHTTPClient
 import Foundation
 
 public struct AlpacaDataClient: AlpacaClientProtocol {

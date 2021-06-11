@@ -5,20 +5,19 @@ import PackageDescription
 let package = Package(
     name: "Alpaca",
     platforms: [
-        .iOS(.init("15.0"))
+        .iOS("15.0"),
+        .macOS("12.0"),
+        .tvOS("15.0"),
+        .watchOS("8.0")
     ],
     products: [
         .library(name: "Alpaca", targets: ["Alpaca"])
     ],
-    dependencies: [
-        .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.0.0"),
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Alpaca",
-            dependencies: [
-                .product(name: "AsyncHTTPClient", package: "async-http-client")
-            ]
+            dependencies: []
         ),
         .testTarget(
             name: "AlpacaTests",

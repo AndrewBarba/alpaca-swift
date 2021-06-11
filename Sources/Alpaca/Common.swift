@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import NIOHTTP1
 
 public struct EmptyResponse: Decodable {
     internal static let jsonData = try! JSONSerialization.data(withJSONObject: [:], options: [])
@@ -14,7 +13,7 @@ public struct EmptyResponse: Decodable {
 
 public enum RequestError: Error {
     case invalidURL
-    case status(HTTPResponseStatus)
+    case status(Int)
 }
 
 public struct MultiResponse<T>: Codable where T: Codable {
