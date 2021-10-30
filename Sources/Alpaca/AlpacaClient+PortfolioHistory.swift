@@ -25,8 +25,8 @@ public struct PortfolioHistory: Codable {
 }
 
 extension AlpacaClient {
-    public func portfolioHistory(period: String? = nil, timeframe: PortfolioHistory.Timeframe? = nil, dateEnd: Date? = nil, extendedHours: Bool? = nil) -> ResponsePublisher<PortfolioHistory> {
-        return get("account/portfolio/history", searchParams: [
+    public func portfolioHistory(period: String? = nil, timeframe: PortfolioHistory.Timeframe? = nil, dateEnd: Date? = nil, extendedHours: Bool? = nil) async throws -> PortfolioHistory {
+        return try await get("account/portfolio/history", searchParams: [
             "period": period,
             "timeframe": timeframe?.rawValue,
             "date_end": dateEnd.map(Utils.iso8601DateOnlyFormatter.string),

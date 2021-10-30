@@ -40,19 +40,19 @@ public struct Asset: Codable, Identifiable {
 }
 
 extension AlpacaClient {
-    public func assets(status: Asset.Status? = nil, assetClass: Asset.Class? = nil) -> ResponsePublisher<[Asset]> {
-        return get("assets", searchParams: ["status": status?.rawValue, "asset_class": assetClass?.rawValue])
+    public func assets(status: Asset.Status? = nil, assetClass: Asset.Class? = nil) async throws -> [Asset] {
+        return try await get("assets", searchParams: ["status": status?.rawValue, "asset_class": assetClass?.rawValue])
     }
 
-    public func asset(id: String) -> ResponsePublisher<Asset> {
-        return get("assets/\(id)")
+    public func asset(id: String) async throws -> Asset {
+        return try await get("assets/\(id)")
     }
 
-    public func asset(id: UUID) -> ResponsePublisher<Asset> {
-        return get("assets/\(id.uuidString)")
+    public func asset(id: UUID) async throws -> Asset {
+        return try await get("assets/\(id.uuidString)")
     }
 
-    public func asset(symbol: String) -> ResponsePublisher<Asset> {
-        return get("assets/\(symbol)")
+    public func asset(symbol: String) async throws -> Asset {
+        return try await get("assets/\(symbol)")
     }
 }

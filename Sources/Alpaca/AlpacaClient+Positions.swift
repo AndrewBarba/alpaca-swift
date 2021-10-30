@@ -32,35 +32,35 @@ public struct Position: Codable {
 }
 
 extension AlpacaClient {
-    public func positions() -> ResponsePublisher<[Position]> {
-        return get("positions")
+    public func positions() async throws -> [Position] {
+        return try await get("positions")
     }
 
-    public func position(assetId: String) -> ResponsePublisher<Position> {
-        return get("positions/\(assetId)")
+    public func position(assetId: String) async throws -> Position {
+        return try await get("positions/\(assetId)")
     }
 
-    public func position(assetId: UUID) -> ResponsePublisher<Position> {
-        return get("positions/\(assetId.uuidString)")
+    public func position(assetId: UUID) async throws -> Position {
+        return try await get("positions/\(assetId.uuidString)")
     }
 
-    public func position(symbol: String) -> ResponsePublisher<Position> {
-        return get("positions/\(symbol)")
+    public func position(symbol: String) async throws -> Position {
+        return try await get("positions/\(symbol)")
     }
 
-    public func closePositions() -> ResponsePublisher<[MultiResponse<Order>]> {
-        return delete("positions")
+    public func closePositions() async throws -> [MultiResponse<Order>] {
+        return try await delete("positions")
     }
 
-    public func closePosition(assetId: String) -> ResponsePublisher<Order> {
-        return delete("positions/\(assetId)")
+    public func closePosition(assetId: String) async throws -> Order {
+        return try await delete("positions/\(assetId)")
     }
 
-    public func closePosition(assetId: UUID) -> ResponsePublisher<Order> {
-        return delete("positions/\(assetId.uuidString)")
+    public func closePosition(assetId: UUID) async throws -> Order {
+        return try await delete("positions/\(assetId.uuidString)")
     }
 
-    public func closePosition(symbol: String) -> ResponsePublisher<Order> {
-        return delete("positions/\(symbol)")
+    public func closePosition(symbol: String) async throws -> Order {
+        return try await delete("positions/\(symbol)")
     }
 }

@@ -89,8 +89,8 @@ public struct Order: Codable, Identifiable {
 }
 
 extension AlpacaClient {
-    public func orders(status: String? = nil, limit: Int? = nil, after: Date? = nil, until: Date? = nil, direction: SortDirection? = nil, nested: Bool? = nil) -> ResponsePublisher<[Order]> {
-        return get("orders", searchParams: [
+    public func orders(status: String? = nil, limit: Int? = nil, after: Date? = nil, until: Date? = nil, direction: SortDirection? = nil, nested: Bool? = nil) async throws -> [Order] {
+        return try await get("orders", searchParams: [
             "status": status,
             "limit": limit.map(String.init),
             "after": after.map(Utils.iso8601DateFormatter.string),
@@ -100,16 +100,16 @@ extension AlpacaClient {
         ])
     }
 
-    public func order(id: UUID, nested: Bool? = nil) -> ResponsePublisher<Order> {
-        return get("orders/\(id)", searchParams: ["nested": nested.map(String.init)])
+    public func order(id: UUID, nested: Bool? = nil) async throws -> Order {
+        return try await get("orders/\(id)", searchParams: ["nested": nested.map(String.init)])
     }
 
-    public func order(id: String, nested: Bool? = nil) -> ResponsePublisher<Order> {
-        return get("orders/\(id)", searchParams: ["nested": nested.map(String.init)])
+    public func order(id: String, nested: Bool? = nil) async throws -> Order {
+        return try await get("orders/\(id)", searchParams: ["nested": nested.map(String.init)])
     }
 
-    public func createOrder(symbol: String, qty: Double, side: Order.Side, type: Order.OrderType, timeInForce: Order.TimeInForce, limitPrice: Double? = nil, stopPrice: Double? = nil, extendedHours: Bool = false, `class`: Order.Class? = nil, takeProfitLimitPrice: Double? = nil, stopLoss: (stopPrice: Double, limitPrice: Double?)? = nil) -> ResponsePublisher<Order> {
-        return post("orders", body: [
+    public func createOrder(symbol: String, qty: Double, side: Order.Side, type: Order.OrderType, timeInForce: Order.TimeInForce, limitPrice: Double? = nil, stopPrice: Double? = nil, extendedHours: Bool = false, `class`: Order.Class? = nil, takeProfitLimitPrice: Double? = nil, stopLoss: (stopPrice: Double, limitPrice: Double?)? = nil) async throws -> Order {
+        return try await post("orders", body: [
             "symbol": symbol,
             "qty": qty,
             "side": side.rawValue,
@@ -124,15 +124,15 @@ extension AlpacaClient {
         ])
     }
 
-    public func cancelOrders() -> ResponsePublisher<[MultiResponse<Order>]> {
-        return delete("orders")
+    public func cancelOrders() async throws -> [MultiResponse<Order>] {
+        return try await delete("orders")
     }
 
-    public func cancelOrder(id: String) -> ResponsePublisher<Order> {
-        return delete("orders/\(id)")
+    public func cancelOrder(id: String) async throws -> Order {
+        return try await delete("orders/\(id)")
     }
 
-    public func cancelOrder(id: UUID) -> ResponsePublisher<Order> {
-        return delete("orders/\(id.uuidString)")
+    public func cancelOrder(id: UUID) async throws -> Order {
+        return try await delete("orders/\(id.uuidString)")
     }
 }
