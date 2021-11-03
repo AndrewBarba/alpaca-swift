@@ -25,6 +25,8 @@ public enum HTTPMethod: String {
 
 public protocol AlpacaClientProtocol {
     var environment: Environment { get }
+    
+    var timeoutInterval: TimeInterval { get }
 }
 
 // MARK: - Requests
@@ -104,7 +106,7 @@ extension AlpacaClientProtocol {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("alpaca-swift/1.0", forHTTPHeaderField: "User-Agent")
         request.httpBody = httpBody
-        request.timeoutInterval = 10
+        request.timeoutInterval = timeoutInterval
 
         let (data, _) = try await URLSession.shared.data(for: request)
 
