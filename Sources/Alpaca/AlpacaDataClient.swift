@@ -17,4 +17,9 @@ public struct AlpacaDataClient: AlpacaClientProtocol {
         self.environment = .data(key: key, secret: secret)
         self.timeoutInterval = timeoutInterval
     }
+    
+    internal init(accessToken: String, timeoutInterval: TimeInterval) {
+        self.environment = .data(accessToken: accessToken)
+        self.timeoutInterval = timeoutInterval
+    }
 }

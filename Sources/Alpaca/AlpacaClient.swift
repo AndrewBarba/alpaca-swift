@@ -11,6 +11,13 @@ public struct AlpacaClient: AlpacaClientProtocol {
     public init(_ environment: Environment, timeoutInterval: TimeInterval = 10, dataTimeoutInterval: TimeInterval = 10) {
         self.environment = environment
         self.timeoutInterval = timeoutInterval
-        self.data = AlpacaDataClient(key: environment.key, secret: environment.secret, timeoutInterval: dataTimeoutInterval)
+        self.data = {
+            switch environment.authType {
+                case .basic(let key, let secret):
+                    return AlpacaDataClient(key: key, secret: secret, timeoutInterval: dataTimeoutInterval)
+                case .oauth(let accessToken):
+                    return AlpacaDataClient(accessToken: accessToken, timeoutInterval: timeoutInterval)
+            }
+        }()
     }
 }

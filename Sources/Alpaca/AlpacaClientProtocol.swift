@@ -100,9 +100,15 @@ extension AlpacaClientProtocol {
         }
 
         var request = URLRequest(url: url)
+        if case .oauth(let accessToken) = environment.authType {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        if case .basic(let key, let secret) = environment.authType {
+            request.setValue(key, forHTTPHeaderField: "APCA-API-KEY-ID")
+            request.setValue(secret, forHTTPHeaderField: "APCA-API-SECRET-KEY")
+        }
         request.httpMethod = method.rawValue
-        request.setValue(environment.key, forHTTPHeaderField: "APCA-API-KEY-ID")
-        request.setValue(environment.secret, forHTTPHeaderField: "APCA-API-SECRET-KEY")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("alpaca-swift/1.0", forHTTPHeaderField: "User-Agent")
         request.httpBody = httpBody
