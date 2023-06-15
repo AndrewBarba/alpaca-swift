@@ -115,7 +115,23 @@ extension AlpacaClientProtocol {
         request.timeoutInterval = timeoutInterval
 
         let (data, _) = try await URLSession.shared.data(for: request)
-
-        return try Utils.jsonDecoder.decode(T.self, from: data)
+        
+        do {
+            return try Utils.jsonDecoder.decode(T.self, from: data)
+        } catch {
+            if let error = error as? DecodingError {
+                // rethrow the error if it's a decoding error
+                // because it's not even valid json
+                throw error
+            } else {
+                //else let's try to throw an error with the returned message from Alpaca
+                if let errorResponse = try? Utils.jsonDecoder.decode(ErrorResponse.self, from: data) {
+                    throw AlpacaError(code: errorResponse.code, message: errorResponse.message)
+                } else {
+                    //if we failed to get decode the error response something else must be wrong. Rethrow
+                    throw error
+                }
+            }
+        }
     }
 }

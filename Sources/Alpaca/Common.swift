@@ -11,6 +11,11 @@ public struct EmptyResponse: Decodable {
     internal static let jsonData = try! JSONSerialization.data(withJSONObject: [:], options: [])
 }
 
+public struct ErrorResponse: Decodable {
+    internal let code: Int
+    internal let message: String
+}
+
 public enum RequestError: Error {
     case invalidURL
     case status(Int)
@@ -58,5 +63,21 @@ public struct NumericString<Value: StringRepresentable>: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(value.description)
+    }
+}
+
+public struct AlpacaError: Error {
+    public var localizedDescription: String {
+        get {
+            return self.message
+        }
+    }
+    
+    public var code: Int
+    public var message: String
+    
+    init(code: Int, message: String) {
+        self.code = code
+        self.message = message
     }
 }
