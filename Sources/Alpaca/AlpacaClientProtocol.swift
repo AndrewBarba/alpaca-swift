@@ -117,8 +117,6 @@ extension AlpacaClientProtocol {
         let (data, _) = try await URLSession.shared.data(for: request)
         
         do {
-            print("URL: \(url)\n\n")
-            print("Headers: \(request.allHTTPHeaderFields)\n\n")
             return try Utils.jsonDecoder.decode(T.self, from: data)
         } catch {
             if let error = error as? DecodingError {
