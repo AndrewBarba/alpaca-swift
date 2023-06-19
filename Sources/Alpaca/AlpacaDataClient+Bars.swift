@@ -44,7 +44,7 @@ extension AlpacaDataClient {
         return try await get("stocks/bars", searchParams: [
             "symbols": symbols.joined(separator: ","),
             "limit": limit.map(String.init),
-            "start": start.map(Utils.iso8601DateFormatter.string),
+            "start": start.map(Utils.iso8601DateOnlyFormatter.string),
             "end": end.map(Utils.iso8601DateFormatter.string),
             "after": after.map(Utils.iso8601DateFormatter.string),
             "until": until.map(Utils.iso8601DateFormatter.string),
