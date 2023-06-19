@@ -12,7 +12,11 @@ public struct Bar: Codable {
         case oneMin = "1Min"
         case fiveMin = "5Min"
         case fifteenMin = "15Min"
-        case oneDay = "1D"
+        case oneDay = "1Day"
+        case threeDay = "3Day"
+        case fiveDay = "5Day"
+        case oneMonth = "1Month"
+        case twelveMonth = "12Month"
     }
 
     private let t: Double
@@ -37,13 +41,14 @@ public struct Bar: Codable {
 extension AlpacaDataClient {
 
     public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [Bar]] {
-        return try await get("bars/\(timeframe.rawValue)", searchParams: [
+        return try await get("stocks/bars", searchParams: [
             "symbols": symbols.joined(separator: ","),
             "limit": limit.map(String.init),
             "start": start.map(Utils.iso8601DateFormatter.string),
             "end": end.map(Utils.iso8601DateFormatter.string),
             "after": after.map(Utils.iso8601DateFormatter.string),
-            "until": until.map(Utils.iso8601DateFormatter.string)
+            "until": until.map(Utils.iso8601DateFormatter.string),
+            "timeframe": timeframe.rawValue
         ])
     }
 
