@@ -16,11 +16,11 @@ public struct Environment {
     public let authType: AuthType
 
     internal static func data(key: String, secret: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v1", authType: .basic(key: key, secret: secret))
+        Environment(api: "https://data.alpaca.markets/v2", authType: .basic(key: key, secret: secret))
     }
     
     internal static func data(accessToken: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v1", authType: .oauth(accessToken: accessToken))
+        Environment(api: "https://data.alpaca.markets/v2", authType: .oauth(accessToken: accessToken))
     }
 
     public static func live(key: String, secret: String) -> Self {
