@@ -19,8 +19,8 @@ public struct Bar: Codable {
         case twelveMonth = "12Month"
     }
 
-    private let t: Double
-    public var timeframe: Double { t }
+    private let t: Date
+    public var timestamp: Date { t }
 
     private let o: Double
     public var open: Double { o }
