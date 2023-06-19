@@ -36,11 +36,17 @@ public struct Bar: Codable {
 
     private let v: Double
     public var volume: Double { v }
+    
+    private let n: Double
+    public var numTrades: Double { n }
+    
+    private let vw: Double
+    public var volWeightedAvgPrice: Double { vw }
 }
 
 extension AlpacaDataClient {
 
-    public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [Bar]] {
+    public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [String: [Bar]]] {
         return try await get("stocks/bars", searchParams: [
             "symbols": symbols.joined(separator: ","),
             "limit": limit.map(String.init),
@@ -54,11 +60,11 @@ extension AlpacaDataClient {
 
     public func bars(_ timeframe: Bar.Timeframe, symbol: String, limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [Bar] {
         let res = try await bars(timeframe, symbols: [symbol], limit: limit, start: start, end: end, after: after, until: until)
-        return res[symbol, default: []]
+        return res["bars", default: [:]][symbol, default: []]
     }
 
     public func bars(_ timeframe: Bar.Timeframe, assets: [Asset], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [Bar]] {
-        return try await bars(timeframe, symbols: assets.map(\.symbol), limit: limit, start: start, end: end, after: after, until: until)
+        return try await bars(timeframe, symbols: assets.map(\.symbol), limit: limit, start: start, end: end, after: after, until: until)["bars", default: [:]]
     }
 
     public func bars(_ timeframe: Bar.Timeframe, asset: Asset, limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [Bar] {
