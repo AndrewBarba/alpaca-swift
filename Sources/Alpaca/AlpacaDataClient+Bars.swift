@@ -71,7 +71,7 @@ extension AlpacaDataClient {
         if let pageToken = response.nextPageToken {
             searchParams["page_token"] = pageToken
             let page2: BarResponse = try await get("stocks/bars", searchParams: searchParams)
-            page.bars.forEach {
+            page2.bars.forEach {
                 bars[$0]?.append(contentsOf: $1)
             }
         }
