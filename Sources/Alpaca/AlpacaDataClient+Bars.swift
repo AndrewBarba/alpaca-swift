@@ -14,10 +14,8 @@ public struct Bar: Codable {
         case fifteenMin = "15Min"
         case oneHour = "1Hour"
         case oneDay = "1Day"
-        case threeDay = "3Day"
-        case fiveDay = "5Day"
+        case oneWeek = "1Week"
         case oneMonth = "1Month"
-        case twelveMonth = "12Month"
     }
 
     private let t: Date
