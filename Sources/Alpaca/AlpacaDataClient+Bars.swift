@@ -12,6 +12,7 @@ public struct Bar: Codable {
         case oneMin = "1Min"
         case fiveMin = "5Min"
         case fifteenMin = "15Min"
+        case oneHour = "1Hour"
         case oneDay = "1Day"
         case threeDay = "3Day"
         case fiveDay = "5Day"
