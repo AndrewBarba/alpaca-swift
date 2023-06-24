@@ -51,7 +51,7 @@ extension AlpacaDataClient {
     
     public func latestQuote(symbol: String, feed: Quote.Feed = .iex) async throws -> Quote {
         let searchParams: HTTPSearchParams = [
-            "symbols": symbol,
+            "symbol": symbol,
             "feed": feed.rawValue
         ]
         
