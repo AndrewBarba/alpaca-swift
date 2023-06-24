@@ -50,12 +50,16 @@ struct LatestQuoteResponse: Codable {
 extension AlpacaDataClient {
     
     public func latestQuote(symbol: String, feed: Quote.Feed = .iex) async throws -> Quote {
-        var searchParams: HTTPSearchParams = [
+        let searchParams: HTTPSearchParams = [
             "symbols": symbol,
             "feed": feed.rawValue
         ]
         
-        var response: LatestQuoteResponse = try await get("/v2/stocks/\(symbol)/quotes/latest", searchParams: searchParams)
+        let response: LatestQuoteResponse = try await get("/v2/stocks/\(symbol)/quotes/latest", searchParams: searchParams)
         return response.quote
+    }
+    
+    public func latestQuote(asset: Asset, feed: Quote.Feed = .iex) async throws -> Quote {
+        return try await latestQuote(symbol: asset.symbol, feed: feed)
     }
 }
