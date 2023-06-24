@@ -43,7 +43,21 @@ struct TradesResponse: Codable {
     let nextPageToken: String?
 }
 
+struct LatestTradeResponse: Codable {
+    let symbol: String
+    let trade: Trade
+}
+
 extension AlpacaDataClient {
+    
+    public func latestTrade(symbol: String, feed: Trade.Feed = .iex) async throws -> Trade {
+        let searchParams: HTTPSearchParams = [
+            "feed": feed.rawValue
+        ]
+        
+        let response: LatestTradeResponse = try await get("/stocks/\(symbol)/trades/latest", searchParams: searchParams)
+        return response.trade
+    }
     public func trades(symbols: [String], start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Trade.Feed = .iex) async throws -> [String: [Trade]] {
         var searchParams: HTTPSearchParams = [
             "symbols": symbols.joined(separator: ","),
@@ -78,5 +92,9 @@ extension AlpacaDataClient {
     public func trades(symbol: String, start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Trade.Feed = .iex) async throws ->  [Trade] {
         let res = try await trades(symbols: [symbol], start: start, end: end, limit: limit, asof: asof, feed: feed)
         return res[symbol, default: []]
+    }
+    
+    public func latestTrade(asset: Asset, feed: Trade.Feed = .iex) async throws -> Trade {
+        return try await latestTrade(symbol: asset.symbol, feed: feed)
     }
 }
