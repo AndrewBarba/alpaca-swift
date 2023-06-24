@@ -58,7 +58,7 @@ extension AlpacaDataClient {
         var trades = response.trades
         while let pageToken = response.nextPageToken {
             searchParams["page_token"] = pageToken
-            response = try await get("/v2/stocks/trades", searchParams: searchParams)
+            response = try await get("/stocks/trades", searchParams: searchParams)
             response.trades.forEach {
                 trades[$0]?.append(contentsOf: $1)
             }
