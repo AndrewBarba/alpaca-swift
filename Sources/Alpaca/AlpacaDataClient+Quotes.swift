@@ -14,8 +14,8 @@ public struct Quote: Codable {
     private let ax: String
     public var askExchange: String { ax }
     
-    private let ap: NumericString<Double>
-    public var askPrice: NumericString<Double> { ap }
+    private let ap: Double
+    public var askPrice: Double { ap }
     
     private let `as`: Int
     public var askSize: Int { `as` }
@@ -23,8 +23,8 @@ public struct Quote: Codable {
     private let bx: String
     public var bidExchange: String { bx }
     
-    private let bp: NumericString<Double>
-    public var bidPrice: NumericString<Double> { bp }
+    private let bp: Double
+    public var bidPrice: Double { bp }
     
     private let bs: Int
     public var bidSize: Int { bs }
