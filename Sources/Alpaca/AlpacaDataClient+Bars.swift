@@ -59,7 +59,7 @@ extension AlpacaDataClient {
         var searchParams: HTTPSearchParams = [
             "symbols": symbols.joined(separator: ","),
             "limit": limit.map(String.init),
-            "start": start.map(Utils.iso8601DateOnlyFormatter.string),
+            "start": start.map(Utils.iso8601DateFormatter.string),
             "end": end.map(Utils.iso8601DateFormatter.string),
             "after": after.map(Utils.iso8601DateFormatter.string),
             "until": until.map(Utils.iso8601DateFormatter.string),
