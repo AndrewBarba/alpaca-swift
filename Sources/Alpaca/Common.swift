@@ -16,6 +16,11 @@ public struct ErrorResponse: Decodable {
     internal let message: String
 }
 
+public enum Feed: String, CaseIterable {
+    case iex = "iex"
+    case sip = "sip"
+}
+
 public enum RequestError: Error {
     case invalidURL
     case status(Int)

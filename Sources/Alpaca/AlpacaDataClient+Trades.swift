@@ -31,11 +31,6 @@ public struct Trade: Codable {
     
     private let u: String?
     public var update: String? { u }
-    
-    public enum Feed: String, CaseIterable {
-        case iex = "iex"
-        case sip = "sip"
-    }
 }
 
 struct TradesResponse: Codable {
@@ -50,7 +45,7 @@ struct LatestTradeResponse: Codable {
 
 extension AlpacaDataClient {
     
-    public func latestTrade(symbol: String, feed: Trade.Feed = .iex) async throws -> Trade {
+    public func latestTrade(symbol: String, feed: Feed = .iex) async throws -> Trade {
         let searchParams: HTTPSearchParams = [
             "feed": feed.rawValue
         ]
@@ -58,7 +53,7 @@ extension AlpacaDataClient {
         let response: LatestTradeResponse = try await get("/stocks/\(symbol)/trades/latest", searchParams: searchParams)
         return response.trade
     }
-    public func trades(symbols: [String], start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Trade.Feed = .iex) async throws -> [String: [Trade]] {
+    public func trades(symbols: [String], start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Feed = .iex) async throws -> [String: [Trade]] {
         var searchParams: HTTPSearchParams = [
             "symbols": symbols.joined(separator: ","),
             "start": start.map(Utils.iso8601DateFormatter.string),
@@ -81,20 +76,20 @@ extension AlpacaDataClient {
         return trades
     }
     
-    public func trades(assets: [Asset], start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Trade.Feed = .iex) async throws -> [String: [Trade]] {
+    public func trades(assets: [Asset], start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Feed = .iex) async throws -> [String: [Trade]] {
         return try await trades(symbols: assets.map(\.symbol), start: start, end: end, limit: limit, asof: asof, feed: feed)
     }
     
-    public func trades(asset: Asset, start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Trade.Feed = .iex) async throws ->  [Trade] {
+    public func trades(asset: Asset, start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Feed = .iex) async throws ->  [Trade] {
         return try await trades(symbol: asset.symbol, start: start, end: end, limit: limit, asof: asof, feed: feed)
     }
     
-    public func trades(symbol: String, start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Trade.Feed = .iex) async throws ->  [Trade] {
+    public func trades(symbol: String, start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Feed = .iex) async throws ->  [Trade] {
         let res = try await trades(symbols: [symbol], start: start, end: end, limit: limit, asof: asof, feed: feed)
         return res[symbol, default: []]
     }
     
-    public func latestTrade(asset: Asset, feed: Trade.Feed = .iex) async throws -> Trade {
+    public func latestTrade(asset: Asset, feed: Feed = .iex) async throws -> Trade {
         return try await latestTrade(symbol: asset.symbol, feed: feed)
     }
 }

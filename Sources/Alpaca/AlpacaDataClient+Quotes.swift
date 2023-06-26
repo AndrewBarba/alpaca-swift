@@ -34,11 +34,6 @@ public struct Quote: Codable {
     
     private let z: String?
     public var tape: String? { z }
-    
-    public enum Feed: String, CaseIterable {
-        case iex = "iex"
-        case sip = "sip"
-    }
 }
 
 struct LatestQuoteResponse: Codable {
@@ -49,7 +44,7 @@ struct LatestQuoteResponse: Codable {
 
 extension AlpacaDataClient {
     
-    public func latestQuote(symbol: String, feed: Quote.Feed = .iex) async throws -> Quote {
+    public func latestQuote(symbol: String, feed: Feed = .iex) async throws -> Quote {
         let searchParams: HTTPSearchParams = [
             "feed": feed.rawValue
         ]
@@ -58,7 +53,7 @@ extension AlpacaDataClient {
         return response.quote
     }
     
-    public func latestQuote(asset: Asset, feed: Quote.Feed = .iex) async throws -> Quote {
+    public func latestQuote(asset: Asset, feed: Feed = .iex) async throws -> Quote {
         return try await latestQuote(symbol: asset.symbol, feed: feed)
     }
 }
