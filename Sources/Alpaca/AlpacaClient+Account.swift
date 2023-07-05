@@ -25,7 +25,7 @@ public struct Account: Codable, Identifiable {
     public let status: Status
     public let accruedFees: NumericString<Double>
     public let pendingTransferIn: NumericString<Double>
-    public let pendingTransferOut: NumericString<Double>
+    public let pendingTransferOut: NumericString<Double>?
     public let patternDayTrader: Bool
     public let tradeSuspendedByUser: Bool
     public let tradingBlocked: Bool
