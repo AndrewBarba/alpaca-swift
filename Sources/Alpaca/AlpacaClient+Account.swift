@@ -23,6 +23,9 @@ public struct Account: Codable, Identifiable {
     public let currency: String
     public let cash: NumericString<Double>
     public let status: Status
+    public let accruedFees: NumericString<Double>
+    public let pendingTransferIn: NumericString<Double>
+    public let pendingTransferOut: NumericString<Double>
     public let patternDayTrader: Bool
     public let tradeSuspendedByUser: Bool
     public let tradingBlocked: Bool
@@ -36,6 +39,7 @@ public struct Account: Codable, Identifiable {
     public let lastEquity: NumericString<Double>
     public let multiplier: NumericString<Double>
     public let buyingPower: NumericString<Double>
+    public let nonMarginableBuyingPower: NumericString<Double>
     public let initialMargin: NumericString<Double>
     public let maintenanceMargin: NumericString<Double>
     public let sma: NumericString<Double>
