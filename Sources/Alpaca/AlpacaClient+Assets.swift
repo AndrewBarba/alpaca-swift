@@ -37,6 +37,18 @@ public struct Asset: Codable, Identifiable {
     public let marginable: Bool
     public let shortable: Bool
     public let easyToBorrow: Bool
+    
+    public init(id: UUID, exchange: Exchange, symbol: String, name: String, status: Status, tradable: Bool, marginable: Bool, shortable: Bool, easyToBorrow: Bool) {
+        self.id = id
+        self.exchange = exchange
+        self.symbol = symbol
+        self.name = name
+        self.status = status
+        self.tradable = tradable
+        self.marginable = marginable
+        self.shortable = shortable
+        self.easyToBorrow = easyToBorrow
+    }
 }
 
 extension AlpacaClient {

@@ -47,6 +47,38 @@ public struct Account: Codable, Identifiable {
     public let lastMaintenanceMargin: NumericString<Double>
     public let daytradingBuyingPower: NumericString<Double>
     public let regtBuyingPower: NumericString<Double>
+    
+    public init(id: UUID, accountNumber: String, currency: String, cash: NumericString<Double>, status: Status, accruedFees: NumericString<Double>, pendingTransferIn: NumericString<Double>, pendingTransferOut: NumericString<Double>?, patternDayTrader: Bool, tradeSuspendedByUser: Bool, tradingBlocked: Bool, transfersBlocked: Bool, accountBlocked: Bool, createdAt: Date, shortingEnabled: Bool, longMarketValue: NumericString<Double>, shortMarketValue: NumericString<Double>, equity: NumericString<Double>, lastEquity: NumericString<Double>, multiplier: NumericString<Double>, buyingPower: NumericString<Double>, nonMarginableBuyingPower: NumericString<Double>, initialMargin: NumericString<Double>, maintenanceMargin: NumericString<Double>, sma: NumericString<Double>, daytradeCount: Int, lastMaintenanceMargin: NumericString<Double>, daytradingBuyingPower: NumericString<Double>, regtBuyingPower: NumericString<Double>) {
+        self.id = id
+        self.accountNumber = accountNumber
+        self.currency = currency
+        self.cash = cash
+        self.status = status
+        self.accruedFees = accruedFees
+        self.pendingTransferIn = pendingTransferIn
+        self.pendingTransferOut = pendingTransferOut
+        self.patternDayTrader = patternDayTrader
+        self.tradeSuspendedByUser = tradeSuspendedByUser
+        self.tradingBlocked = tradingBlocked
+        self.transfersBlocked = transfersBlocked
+        self.accountBlocked = accountBlocked
+        self.createdAt = createdAt
+        self.shortingEnabled = shortingEnabled
+        self.longMarketValue = longMarketValue
+        self.shortMarketValue = shortMarketValue
+        self.equity = equity
+        self.lastEquity = lastEquity
+        self.multiplier = multiplier
+        self.buyingPower = buyingPower
+        self.nonMarginableBuyingPower = nonMarginableBuyingPower
+        self.initialMargin = initialMargin
+        self.maintenanceMargin = maintenanceMargin
+        self.sma = sma
+        self.daytradeCount = daytradeCount
+        self.lastMaintenanceMargin = lastMaintenanceMargin
+        self.daytradingBuyingPower = daytradingBuyingPower
+        self.regtBuyingPower = regtBuyingPower
+    }
 }
 
 extension AlpacaClient {

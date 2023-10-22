@@ -13,6 +13,14 @@ public struct Snapshot: Codable {
     let minuteBar: Bar
     let dailyBar: Bar
     let prevDailyBar: Bar
+    
+    public init(latestTrade: Trade, latestQuote: Quote, minuteBar: Bar, dailyBar: Bar, prevDailyBar: Bar) {
+        self.latestTrade = latestTrade
+        self.latestQuote = latestQuote
+        self.minuteBar = minuteBar
+        self.dailyBar = dailyBar
+        self.prevDailyBar = prevDailyBar
+    }
 }
 
 extension AlpacaDataClient {

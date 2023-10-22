@@ -86,6 +86,35 @@ public struct Order: Codable, Identifiable {
     public let status: Status
     public let extendedHours: Bool
     public let legs: [Order]?
+    
+    public init(id: UUID, clientOrderId: String, createdAt: Date, updatedAt: Date?, submittedAt: Date?, filledAt: Date?, expiredAt: Date?, canceledAt: Date?, failedAt: Date?, replacedAt: Date?, replacedBy: UUID?, replaces: UUID?, assetId: UUID, symbol: String, assetClass: Asset.Class, qty: NumericString<Double>, filledQty: NumericString<Double>, type: OrderType, side: Side, timeInForce: TimeInForce, limitPrice: NumericString<Double>?, stopPrice: NumericString<Double>?, filledAvgPrice: NumericString<Double>?, status: Status, extendedHours: Bool, legs: [Order]?) {
+        self.id = id
+        self.clientOrderId = clientOrderId
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.submittedAt = submittedAt
+        self.filledAt = filledAt
+        self.expiredAt = expiredAt
+        self.canceledAt = canceledAt
+        self.failedAt = failedAt
+        self.replacedAt = replacedAt
+        self.replacedBy = replacedBy
+        self.replaces = replaces
+        self.assetId = assetId
+        self.symbol = symbol
+        self.assetClass = assetClass
+        self.qty = qty
+        self.filledQty = filledQty
+        self.type = type
+        self.side = side
+        self.timeInForce = timeInForce
+        self.limitPrice = limitPrice
+        self.stopPrice = stopPrice
+        self.filledAvgPrice = filledAvgPrice
+        self.status = status
+        self.extendedHours = extendedHours
+        self.legs = legs
+    }
 }
 
 extension AlpacaClient {

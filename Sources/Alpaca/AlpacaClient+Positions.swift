@@ -29,6 +29,25 @@ public struct Position: Codable {
     public let currentPrice: NumericString<Double>
     public let lastdayPrice: NumericString<Double>
     public let changeToday: NumericString<Double>
+    
+    public init(assetId: UUID, symbol: String, exchange: Asset.Exchange, assetClass: Asset.Class, avgEntryPrice: NumericString<Double>, qty: NumericString<Double>, side: Side, marketValue: NumericString<Double>, costBasis: NumericString<Double>, unrealizedPl: NumericString<Double>, unrealizedPlpc: NumericString<Double>, unrealizedIntradayPl: NumericString<Double>, unrealizedIntradayPlpc: NumericString<Double>, currentPrice: NumericString<Double>, lastdayPrice: NumericString<Double>, changeToday: NumericString<Double>) {
+        self.assetId = assetId
+        self.symbol = symbol
+        self.exchange = exchange
+        self.assetClass = assetClass
+        self.avgEntryPrice = avgEntryPrice
+        self.qty = qty
+        self.side = side
+        self.marketValue = marketValue
+        self.costBasis = costBasis
+        self.unrealizedPl = unrealizedPl
+        self.unrealizedPlpc = unrealizedPlpc
+        self.unrealizedIntradayPl = unrealizedIntradayPl
+        self.unrealizedIntradayPlpc = unrealizedIntradayPlpc
+        self.currentPrice = currentPrice
+        self.lastdayPrice = lastdayPrice
+        self.changeToday = changeToday
+    }
 }
 
 extension AlpacaClient {

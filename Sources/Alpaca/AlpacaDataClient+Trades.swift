@@ -31,6 +31,17 @@ public struct Trade: Codable {
     
     private let u: String?
     public var update: String? { u }
+    
+    public init(t: Date, x: String, p: Double, s: Int, c: [String], i: Int, z: String, u: String?) {
+        self.t = t
+        self.x = x
+        self.p = p
+        self.s = s
+        self.c = c
+        self.i = i
+        self.z = z
+        self.u = u
+    }
 }
 
 struct TradesResponse: Codable {
