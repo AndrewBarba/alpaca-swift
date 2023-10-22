@@ -35,10 +35,11 @@ public struct Quote: Codable {
     private let z: String?
     public var tape: String? { z }
     
-    public init(t: Date, ax: String, ap: Double, bx: String, bp: Double, bs: Int, c: [String], z: String?) {
+    public init(t: Date, ax: String, ap: Double, as: Int, bx: String, bp: Double, bs: Int, c: [String], z: String?) {
         self.t = t
         self.ax = ax
         self.ap = ap
+        self.as = `as`
         self.bx = bx
         self.bp = bp
         self.bs = bs

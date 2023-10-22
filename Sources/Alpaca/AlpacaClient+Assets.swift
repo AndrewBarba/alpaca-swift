@@ -38,7 +38,7 @@ public struct Asset: Codable, Identifiable {
     public let shortable: Bool
     public let easyToBorrow: Bool
     
-    public init(id: UUID, exchange: Exchange, symbol: String, name: String, status: Status, tradable: Bool, marginable: Bool, shortable: Bool, easyToBorrow: Bool) {
+    public init(id: UUID, name: String, symbol: String, exchange: Exchange, status: Status, class: Class, tradable: Bool, marginable: Bool, shortable: Bool, easyToBorrow: Bool) {
         self.id = id
         self.exchange = exchange
         self.symbol = symbol
@@ -48,6 +48,7 @@ public struct Asset: Codable, Identifiable {
         self.marginable = marginable
         self.shortable = shortable
         self.easyToBorrow = easyToBorrow
+        self.class = `class`
     }
 }
 
