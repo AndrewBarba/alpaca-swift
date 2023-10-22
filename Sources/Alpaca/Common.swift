@@ -49,6 +49,10 @@ extension Int: StringRepresentable {}
 public struct NumericString<Value: StringRepresentable>: Codable {
     public var value: Value
 
+    public init(value: Value) {
+        self.value = value
+    }
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let string = try container.decode(String.self)
