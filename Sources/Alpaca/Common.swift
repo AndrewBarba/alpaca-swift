@@ -9,6 +9,10 @@ import Foundation
 
 public struct EmptyResponse: Decodable {
     internal static let jsonData = try! JSONSerialization.data(withJSONObject: [:], options: [])
+    enum CodingKeys: CodingKey {
+    }
+    
+    public init(from decoder: Decoder) throws {}
 }
 
 public struct ErrorResponse: Decodable {
