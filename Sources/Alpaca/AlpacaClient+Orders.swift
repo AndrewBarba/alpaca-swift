@@ -117,6 +117,8 @@ public struct Order: Codable, Identifiable {
     }
 }
 
+struct CancelOrderResponse: Decodable {}
+
 extension AlpacaClient {
     public func orders(status: String? = nil, limit: Int? = nil, after: Date? = nil, until: Date? = nil, direction: SortDirection? = nil, nested: Bool? = nil) async throws -> [Order] {
         return try await get("orders", searchParams: [
@@ -157,11 +159,11 @@ extension AlpacaClient {
         return try await delete("orders")
     }
 
-    public func cancelOrder(id: String) async throws -> Order {
-        return try await delete("orders/\(id)")
+    public func cancelOrder(id: String) async throws {
+        let _: CancelOrderResponse = try await delete("orders/\(id)")
     }
 
-    public func cancelOrder(id: UUID) async throws -> Order {
-        return try await delete("orders/\(id.uuidString)")
+    public func cancelOrder(id: UUID) async throws {
+        let _: CancelOrderResponse = try await delete("orders/\(id.uuidString)")
     }
 }
