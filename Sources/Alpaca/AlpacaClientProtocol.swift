@@ -40,6 +40,10 @@ extension AlpacaClientProtocol {
     public func delete<T>(_ urlPath: String, searchParams: HTTPSearchParams? = nil) async throws -> T where T: Decodable {
         return try await request(.delete, urlPath: urlPath, searchParams: searchParams)
     }
+    
+    public func delete(_ urlPath: String, searchParams: HTTPSearchParams? = nil) async throws {
+        return try await request(.delete, urlPath: urlPath, searchParams: searchParams)
+    }
 
     public func post<T>(_ urlPath: String, searchParams: HTTPSearchParams? = nil) async throws -> T where T: Decodable {
         return try await request(.post, urlPath: urlPath, searchParams: searchParams)
@@ -80,6 +84,10 @@ extension AlpacaClientProtocol {
     public func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil) async throws -> T where T: Decodable {
         return try await request(method, urlPath: urlPath, searchParams: searchParams, httpBody: nil)
     }
+    
+    public func request(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil) async throws {
+        return try await request(method, urlPath: urlPath, searchParams: searchParams, httpBody: nil)
+    }
 
     public func request<T, V>(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil, body: V) async throws -> T where T: Decodable, V: Encodable {
         let data = try Utils.jsonEncoder.encode(body)
@@ -90,7 +98,12 @@ extension AlpacaClientProtocol {
         let data = try JSONSerialization.data(withJSONObject: body.compactMapValues { $0 }, options: [])
         return try await request(method, urlPath: urlPath, searchParams: searchParams, httpBody: data)
     }
-
+    
+    public func request(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil, body: HTTPBodyParams) async throws {
+        let data = try JSONSerialization.data(withJSONObject: body.compactMapValues { $0 }, options: [])
+        return try await request(method, urlPath: urlPath, searchParams: searchParams, httpBody: data)
+    }
+    
     private func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil, httpBody: Data? = nil) async throws -> T where T: Decodable {
         var components = URLComponents(string: "\(environment.api)/\(urlPath)")
         components?.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)
@@ -132,6 +145,43 @@ extension AlpacaClientProtocol {
                     throw error
                 }
             }
+        }
+    }
+    
+    private func request(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil, httpBody: Data? = nil) async throws {
+        var components = URLComponents(string: "\(environment.api)/\(urlPath)")
+        components?.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)
+
+        guard let url = components?.url else {
+            throw RequestError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        if case .oauth(let accessToken) = environment.authType {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        if case .basic(let key, let secret) = environment.authType {
+            request.setValue(key, forHTTPHeaderField: "APCA-API-KEY-ID")
+            request.setValue(secret, forHTTPHeaderField: "APCA-API-SECRET-KEY")
+        }
+        request.httpMethod = method.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("alpaca-swift/1.0", forHTTPHeaderField: "User-Agent")
+        request.httpBody = httpBody
+        request.timeoutInterval = timeoutInterval
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let response = response as? HTTPURLResponse else {
+            throw RequestError.unknown("An unknown error occurred. Response is not of expected type")
+        }
+        
+        if !(200..<300 ~= response.statusCode) {
+            if let errorResponse = try? Utils.jsonDecoder.decode(ErrorResponse.self, from: data) {
+                throw AlpacaError(code: errorResponse.code, message: errorResponse.message)
+            }
+            throw AlpacaError(code: response.statusCode, message: "An error occurred while attempting the current action")
         }
     }
 }

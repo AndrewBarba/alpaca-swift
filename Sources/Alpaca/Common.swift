@@ -28,6 +28,7 @@ public enum Feed: String, CaseIterable {
 public enum RequestError: Error {
     case invalidURL
     case status(Int)
+    case unknown(String)
 }
 
 public struct MultiResponse<T>: Codable where T: Codable {

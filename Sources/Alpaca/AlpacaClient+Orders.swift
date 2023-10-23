@@ -157,11 +157,11 @@ extension AlpacaClient {
         return try await delete("orders")
     }
 
-    public func cancelOrder(id: String) async throws -> EmptyResponse {
+    public func cancelOrder(id: String) async throws {
         return try await delete("orders/\(id)")
     }
 
-    public func cancelOrder(id: UUID) async throws -> EmptyResponse {
+    public func cancelOrder(id: UUID) async throws {
         return try await delete("orders/\(id.uuidString)")
     }
 }
