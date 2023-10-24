@@ -132,18 +132,12 @@ extension AlpacaClientProtocol {
         do {
             return try Utils.jsonDecoder.decode(T.self, from: data)
         } catch {
-            if let error = error as? DecodingError {
-                // rethrow the error if it's a decoding error
-                // because it's not even valid json
-                throw error
+            //See if it's an error response message first
+            if let errorResponse = try? Utils.jsonDecoder.decode(ErrorResponse.self, from: data) {
+                throw AlpacaError(code: errorResponse.code, message: errorResponse.message)
             } else {
-                //else let's try to throw an error with the returned message from Alpaca
-                if let errorResponse = try? Utils.jsonDecoder.decode(ErrorResponse.self, from: data) {
-                    throw AlpacaError(code: errorResponse.code, message: errorResponse.message)
-                } else {
-                    //if we failed to get decode the error response something else must be wrong. Rethrow
-                    throw error
-                }
+                //otherwise just rethrow error
+                throw error
             }
         }
     }
