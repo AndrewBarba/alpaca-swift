@@ -61,7 +61,7 @@ extension AlpacaDataClient {
             "feed": feed.rawValue
         ]
         
-        return try await get("v2/stocks/trades/latest", searchParams: searchParams)
+        return try await get("/v2/stocks/trades/latest", searchParams: searchParams)
     }
     
     public func latestTrades(symbols: [String], feed: Feed = .iex) async throws -> [String: Trade] {
