@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AccountConfigurations: Codable {
+public struct AccountConfiguration: Codable {
     public enum DayTradeBuyingPowerCheck: String, Codable, CaseIterable {
         case both = "both"
         case entry = "entry"
@@ -43,15 +43,15 @@ public struct AccountConfigurations: Codable {
 }
 
 extension AlpacaClient {
-    public func accountConfigurations() async throws -> AccountConfigurations {
+    public func accountConfigurations() async throws -> AccountConfiguration {
         return try await get("account/configurations")
     }
 
-    public func saveAccountConfigurations(_ configurations: AccountConfigurations) async throws -> AccountConfigurations {
-        return try await patch("account/configurations", body: configurations)
+    public func saveAccountConfigurations(_ configuration: AccountConfiguration) async throws -> AccountConfiguration {
+        return try await patch("account/configurations", body: configuration)
     }
 
-    public func saveAccountConfigurations(dtbpCheck: AccountConfigurations.DayTradeBuyingPowerCheck? = nil, pdtCheck: AccountConfigurations.PatterDayTraderCheck? = nil, noShorting: Bool? = nil, suspendTrade: Bool? = nil, fractionalTrading: Bool? = nil, tradeConfirmEmail: AccountConfigurations.TradeConfirmEmail? = nil) async throws -> AccountConfigurations {
+    public func saveAccountConfigurations(dtbpCheck: AccountConfiguration.DayTradeBuyingPowerCheck? = nil, pdtCheck: AccountConfiguration.PatterDayTraderCheck? = nil, noShorting: Bool? = nil, suspendTrade: Bool? = nil, fractionalTrading: Bool? = nil, tradeConfirmEmail: AccountConfiguration.TradeConfirmEmail? = nil) async throws -> AccountConfiguration {
         return try await patch("account/configurations", body: [
             "dtbp_check": dtbpCheck?.rawValue,
             "pdt_check": pdtCheck?.rawValue,
