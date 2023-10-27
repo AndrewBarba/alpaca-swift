@@ -31,6 +31,15 @@ public struct AccountConfigurations: Codable {
     public var suspendTrade: Bool
     public var fractionalTrading: Bool
     public var tradeConfirmEmail: TradeConfirmEmail
+    
+    public init(dtbpCheck: DayTradeBuyingPowerCheck, pdtCheck: PatterDayTraderCheck, noShorting: Bool, suspendTrade: Bool, fractionalTrading: Bool, tradeConfirmEmail: TradeConfirmEmail) {
+        self.dtbpCheck = dtbpCheck
+        self.pdtCheck = pdtCheck
+        self.noShorting = noShorting
+        self.suspendTrade = suspendTrade
+        self.fractionalTrading = fractionalTrading
+        self.tradeConfirmEmail = tradeConfirmEmail
+    }
 }
 
 extension AlpacaClient {
