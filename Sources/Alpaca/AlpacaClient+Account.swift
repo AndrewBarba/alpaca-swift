@@ -17,12 +17,19 @@ public struct Account: Codable, Identifiable {
         case active = "ACTIVE"
         case rejected = "REJECTED"
     }
+    
+    public enum CryptoStatus: String, Codable, CaseIterable {
+        case paperOnly = "PAPER_ONLY"
+        case submitted = "SUBMITTED"
+        case active = "ACTIVE"
+    }
 
     public let id: UUID
     public let accountNumber: String
     public let currency: String
     public let cash: NumericString<Double>
     public let status: Status
+    public let cryptoStatus: CryptoStatus
     public let accruedFees: NumericString<Double>
     public let pendingTransferIn: NumericString<Double>
     public let pendingTransferOut: NumericString<Double>?
@@ -48,12 +55,13 @@ public struct Account: Codable, Identifiable {
     public let daytradingBuyingPower: NumericString<Double>
     public let regtBuyingPower: NumericString<Double>
     
-    public init(id: UUID, accountNumber: String, currency: String, cash: NumericString<Double>, status: Status, accruedFees: NumericString<Double>, pendingTransferIn: NumericString<Double>, pendingTransferOut: NumericString<Double>?, patternDayTrader: Bool, tradeSuspendedByUser: Bool, tradingBlocked: Bool, transfersBlocked: Bool, accountBlocked: Bool, createdAt: Date, shortingEnabled: Bool, longMarketValue: NumericString<Double>, shortMarketValue: NumericString<Double>, equity: NumericString<Double>, lastEquity: NumericString<Double>, multiplier: NumericString<Double>, buyingPower: NumericString<Double>, nonMarginableBuyingPower: NumericString<Double>, initialMargin: NumericString<Double>, maintenanceMargin: NumericString<Double>, sma: NumericString<Double>, daytradeCount: Int, lastMaintenanceMargin: NumericString<Double>, daytradingBuyingPower: NumericString<Double>, regtBuyingPower: NumericString<Double>) {
+    public init(id: UUID, accountNumber: String, currency: String, cash: NumericString<Double>, status: Status, cryptoStatus: CryptoStatus, accruedFees: NumericString<Double>, pendingTransferIn: NumericString<Double>, pendingTransferOut: NumericString<Double>?, patternDayTrader: Bool, tradeSuspendedByUser: Bool, tradingBlocked: Bool, transfersBlocked: Bool, accountBlocked: Bool, createdAt: Date, shortingEnabled: Bool, longMarketValue: NumericString<Double>, shortMarketValue: NumericString<Double>, equity: NumericString<Double>, lastEquity: NumericString<Double>, multiplier: NumericString<Double>, buyingPower: NumericString<Double>, nonMarginableBuyingPower: NumericString<Double>, initialMargin: NumericString<Double>, maintenanceMargin: NumericString<Double>, sma: NumericString<Double>, daytradeCount: Int, lastMaintenanceMargin: NumericString<Double>, daytradingBuyingPower: NumericString<Double>, regtBuyingPower: NumericString<Double>) {
         self.id = id
         self.accountNumber = accountNumber
         self.currency = currency
         self.cash = cash
         self.status = status
+        self.cryptoStatus = cryptoStatus
         self.accruedFees = accruedFees
         self.pendingTransferIn = pendingTransferIn
         self.pendingTransferOut = pendingTransferOut
