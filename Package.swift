@@ -23,6 +23,5 @@ let package = Package(
             name: "AlpacaTests",
             dependencies: ["Alpaca"]
         )
-    ],
-    swiftLanguageVersions: [.version("5.5")]
+    ]
 )
