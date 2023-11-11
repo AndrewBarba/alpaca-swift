@@ -127,8 +127,12 @@ extension AlpacaClientProtocol {
         request.httpBody = httpBody
         request.timeoutInterval = timeoutInterval
 
+        #if canImport(FoundationNetworking)
+        let (data, _) = try await URLSession.shared.dataAsync(with: request)
+        #else
         let (data, _) = try await URLSession.shared.data(for: request)
-        
+        #endif
+
         do {
             return try Utils.jsonDecoder.decode(T.self, from: data)
         } catch {
@@ -165,7 +169,11 @@ extension AlpacaClientProtocol {
         request.httpBody = httpBody
         request.timeoutInterval = timeoutInterval
 
+        #if canImport(FoundationNetworking)
+        let (data, response) = try await URLSession.shared.dataAsync(with: request)
+        #else
         let (data, response) = try await URLSession.shared.data(for: request)
+        #endif
         
         guard let response = response as? HTTPURLResponse else {
             throw RequestError.unknown("An unknown error occurred. Response is not of expected type")

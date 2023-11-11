@@ -12,7 +12,7 @@ enum Environment: String {
 
 final class AlpacaTests: XCTestCase {
 
-    let client = AlpacaClient(.paper(key: Environment.alpacaApiKey.value, secret: Environment.alpacaApiSecret.value))
+    let client = AlpacaClient(.paper(key: Environment.alpacaApiKey.rawValue, secret: Environment.alpacaApiSecret.rawValue))
 
     func testClientAPI() {
         XCTAssertEqual(client.environment.api, "https://paper-api.alpaca.markets/v2")
