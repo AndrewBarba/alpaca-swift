@@ -128,7 +128,7 @@ extension AlpacaClientProtocol {
         request.timeoutInterval = timeoutInterval
 
         #if canImport(FoundationNetworking)
-        let (data, _) = try await URLSession.shared.dataAsync(with: request)
+        let (data, _) = try await dataAsync(with: request)
         #else
         let (data, _) = try await URLSession.shared.data(for: request)
         #endif
@@ -170,7 +170,7 @@ extension AlpacaClientProtocol {
         request.timeoutInterval = timeoutInterval
 
         #if canImport(FoundationNetworking)
-        let (data, response) = try await URLSession.shared.dataAsync(with: request)
+        let (data, response) = try await dataAsync(with: request)
         #else
         let (data, response) = try await URLSession.shared.data(for: request)
         #endif
@@ -184,6 +184,26 @@ extension AlpacaClientProtocol {
                 throw AlpacaError(code: errorResponse.code, message: errorResponse.message)
             }
             throw AlpacaError(code: response.statusCode, message: "An error occurred while attempting the current action")
+        }
+    }
+    
+    func dataAsync(with request: URLRequest) async throws -> (Data, URLResponse) {
+        return try await withCheckedThrowingContinuation { continuation in
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                }
+                guard let data else {
+                    continuation.resume(throwing: RequestError.unknown("Nil data"))
+                    return
+                }
+                guard let response else {
+                    continuation.resume(throwing: RequestError.unknown("Nil response"))
+                    return
+                }
+                continuation.resume(returning: (data, response))
+            }
+            .resume()
         }
     }
 }
