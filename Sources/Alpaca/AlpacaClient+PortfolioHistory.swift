@@ -16,14 +16,14 @@ public struct PortfolioHistory: Codable {
         case oneDay = "1D"
     }
 
-    public let timestamp: [Int]
+    public let timestamp: [TimeInterval]
     public let equity: [Double]
     public let profitLoss: [Double]
     public let profitLossPct: [Double]
     public let baseValue: Double
     public let timeframe: Timeframe
     
-    public init(timestamp: [Int], equity: [Double], profitLoss: [Double], profitLossPct: [Double], baseValue: Double, timeframe: Timeframe) {
+    public init(timestamp: [TimeInterval], equity: [Double], profitLoss: [Double], profitLossPct: [Double], baseValue: Double, timeframe: Timeframe) {
         self.timestamp = timestamp
         self.equity = equity
         self.profitLoss = profitLoss
