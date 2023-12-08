@@ -8,11 +8,11 @@
 import Foundation
 
 public struct Snapshot: Codable {
-    let latestTrade: Trade
-    let latestQuote: Quote
-    let minuteBar: Bar
-    let dailyBar: Bar
-    let prevDailyBar: Bar
+    public let latestTrade: Trade
+    public let latestQuote: Quote
+    public let minuteBar: Bar
+    public let dailyBar: Bar
+    public let prevDailyBar: Bar
     
     public init(latestTrade: Trade, latestQuote: Quote, minuteBar: Bar, dailyBar: Bar, prevDailyBar: Bar) {
         self.latestTrade = latestTrade
