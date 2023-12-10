@@ -17,11 +17,11 @@ public struct PortfolioHistory: Codable {
     }
 
     public let timestamp: [TimeInterval]
-    public let equity: [Double]
-    public let profitLoss: [Double]
-    public let profitLossPct: [Double]
-    public let baseValue: Double
-    public let timeframe: Timeframe
+    public let equity: [Double?]
+    public let profitLoss: [Double?]
+    public let profitLossPct: [Double?]
+    public let baseValue: Double?
+    public let timeframe: Timeframe?
     
     public init(timestamp: [TimeInterval], equity: [Double], profitLoss: [Double], profitLossPct: [Double], baseValue: Double, timeframe: Timeframe) {
         self.timestamp = timestamp
