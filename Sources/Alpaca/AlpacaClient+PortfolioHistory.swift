@@ -75,12 +75,12 @@ public struct PortfolioHistory: Decodable {
         
         let timestamps = try container.decode([TimeInterval].self, forKey: .timestamp)
         let equities = try container.decode([Double?].self, forKey: .equity)
+        let pls = try container.decode([Double?].self, forKey: .profitLoss)
+        let plpcts = try container.decode([Double?].self, forKey: .profitLossPct)
         var values: [Value] = []
         
         for i in 0..<timestamps.count {
-            if let equity = equities[i] {
-                let pl = equity - baseValue
-                let plPct = pl / baseValue
+            if let equity = equities[i], let pl = pls[i], let plPct = plpcts[i] {
                 values.append(.init(timestamp: timestamps[i], equity: equity, profitLoss: pl, profitLossPct: plPct))
             }
         }
