@@ -80,8 +80,10 @@ public struct PortfolioHistory: Decodable {
         var values: [Value] = []
         
         for i in 0..<timestamps.count {
-            if let equity = equities[i], let pl = pls[i], let plPct = plpcts[i] {
-                values.append(.init(timestamp: timestamps[i], equity: equity, profitLoss: pl, profitLossPct: plPct))
+            if let _ = equities[i], let pl = pls[i], let plPct = plpcts[i] {
+                //The equity is calculated incorrectly at this time. A github issue is open about it here: https://github.com/alpacahq/Alpaca-API/issues/223
+                let fixedEquity = baseValue + pl
+                values.append(.init(timestamp: timestamps[i], equity: fixedEquity, profitLoss: pl, profitLossPct: plPct))
             }
         }
         
