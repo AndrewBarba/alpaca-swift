@@ -80,10 +80,12 @@ public struct PortfolioHistory: Decodable {
         var values: [Value] = []
         
         for i in 0..<timestamps.count {
-            if let _ = equities[i], let pl = pls[i], let plPct = plpcts[i] {
-                //The equity is calculated incorrectly at this time. A github issue is open about it here: https://github.com/alpacahq/Alpaca-API/issues/223
-                let fixedEquity = baseValue + pl
-                values.append(.init(timestamp: timestamps[i], equity: fixedEquity, profitLoss: pl, profitLossPct: plPct))
+            if var equity = equities[i], let pl = pls[i], let plPct = plpcts[i] {
+                //The PL is calculated incorrectly at this time. A github issue is open about it here: https://github.com/alpacahq/Alpaca-API/issues/223
+                //We can't use `baseValue` here in case it's zero. Alpaca seems to handle base value correctly for PL Percent calculations
+                let base = equity / (1 + plPct)
+                let fixedPL = equity - base
+                values.append(.init(timestamp: timestamps[i], equity: equity, profitLoss: fixedPL, profitLossPct: plPct))
             }
         }
         
