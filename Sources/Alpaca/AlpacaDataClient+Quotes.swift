@@ -66,7 +66,7 @@ extension AlpacaDataClient {
             "feed": feed.rawValue
         ]
         
-        let response: LatestQuoteResponse = try await get("/stocks/\(symbol)/quotes/latest", searchParams: searchParams)
+        let response: LatestQuoteResponse = try await get("stocks/\(symbol)/quotes/latest", searchParams: searchParams)
         return response.quote
     }
     
