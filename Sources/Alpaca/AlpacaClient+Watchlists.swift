@@ -49,6 +49,10 @@ extension AlpacaClient {
     public func updateWatchlist(id: UUID, name: String? = nil, symbols: [String]? = nil) async throws -> Watchlist {
         return try await put("watchlists/\(id.uuidString)", body: ["name": name, "symbols": symbols])
     }
+    
+    public func renameWatchlist(id: UUID, name: String) async throws -> Watchlist {
+        return try await put("watchlists/\(id.uuidString)", body: ["name": name])
+    }
 
     public func updateWatchlist(id: String, add symbol: String) async throws -> Watchlist {
         return try await post("watchlists/\(id)", body: ["symbol": symbol])
