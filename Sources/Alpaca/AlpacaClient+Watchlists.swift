@@ -13,9 +13,9 @@ public struct Watchlist: Codable, Identifiable {
     public let name: String
     public let createdAt: Date
     public let updatedAt: Date
-    public let assets: [Asset]?
+    public let assets: [Asset]
     
-    public init(id: UUID, accountId: UUID, name: String, createdAt: Date, updatedAt: Date, assets: [Asset]?) {
+    public init(id: UUID, accountId: UUID, name: String, createdAt: Date, updatedAt: Date, assets: [Asset]) {
         self.id = id
         self.accountId = accountId
         self.name = name
