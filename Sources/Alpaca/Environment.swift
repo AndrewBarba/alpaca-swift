@@ -22,6 +22,14 @@ public struct Environment {
     internal static func data(accessToken: String) -> Self {
         Environment(api: "https://data.alpaca.markets/v2", authType: .oauth(accessToken: accessToken))
     }
+    
+    internal static func screener(key: String, secret: String) -> Self {
+        Environment(api: "https://data.alpaca.markets/v1beta1", authType: .basic(key: key, secret: secret))
+    }
+    
+    internal static func screener(accessToken: String) -> Self {
+        Environment(api: "https://data.alpaca.markets/v1beta1", authType: .oauth(accessToken: accessToken))
+    }
 
     public static func live(key: String, secret: String) -> Self {
         Environment(api: "https://api.alpaca.markets/v2", authType: .basic(key: key, secret: secret))
