@@ -8,7 +8,7 @@
 import Foundation
 
 public struct MostActive: Codable {
-    public enum Metric: String, Codable {
+    public enum Metric: String, Codable, CaseIterable {
         case volume
         case trades
     }
