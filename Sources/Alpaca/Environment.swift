@@ -24,11 +24,11 @@ public struct Environment {
     }
     
     internal static func screener(key: String, secret: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v1beta1", authType: .basic(key: key, secret: secret))
+        Environment(api: "https://data.alpaca.markets/v1beta1/screener", authType: .basic(key: key, secret: secret))
     }
     
     internal static func screener(accessToken: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v1beta1", authType: .oauth(accessToken: accessToken))
+        Environment(api: "https://data.alpaca.markets/v1beta1/screener", authType: .oauth(accessToken: accessToken))
     }
 
     public static func live(key: String, secret: String) -> Self {

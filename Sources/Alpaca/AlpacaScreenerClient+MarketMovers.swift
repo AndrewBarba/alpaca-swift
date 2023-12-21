@@ -28,6 +28,6 @@ public struct MarketMovers: Codable {
 
 extension AlpacaScreenerClient {
     public func marketMovers(type: MarketType, limit: Int = 10) async throws -> MarketMovers {
-        return try await get("screener/\(type.rawValue)/movers", searchParams: ["top": "\(limit)"])
+        return try await get("\(type.rawValue)/movers", searchParams: ["top": "\(limit)"])
     }
 }
