@@ -33,11 +33,11 @@ public struct Bar: Codable {
     private let c: Double
     public var close: Double { c }
 
-    private let v: Double
-    public var volume: Double { v }
+    private let v: Int64
+    public var volume: Int64 { v }
     
-    private let n: Double
-    public var numTrades: Double { n }
+    private let n: Int64
+    public var numTrades: Int64 { n }
     
     private let vw: Double
     public var volWeightedAvgPrice: Double { vw }
