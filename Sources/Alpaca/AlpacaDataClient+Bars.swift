@@ -42,7 +42,7 @@ public struct Bar: Codable {
     private let vw: Double
     public var volWeightedAvgPrice: Double { vw }
     
-    public init(t: Date, o: Double, h: Double, l: Double, c: Double, v: Double, n: Double, vw: Double) {
+    public init(t: Date, o: Double, h: Double, l: Double, c: Double, v: Int64, n: Int64, vw: Double) {
         self.t = t
         self.o = o
         self.h = h
