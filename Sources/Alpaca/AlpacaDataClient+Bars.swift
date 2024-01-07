@@ -57,11 +57,6 @@ public struct Bar: Codable {
 struct BarResponse: Codable {
     let bars: [String: [Bar]]
     let nextPageToken: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case bars
-        case nextPageToken = "next_page_token"
-    }
 }
 
 extension AlpacaDataClient {
