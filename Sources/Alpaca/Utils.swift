@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 internal enum Utils {
 
@@ -67,4 +68,8 @@ internal enum Utils {
         })
         return decoder
     }()
+    
+    static var logger: Logger {
+        Logger(subsystem: "com.stockbucket.alpaca-swift", category: "comm")
+    }
 }
