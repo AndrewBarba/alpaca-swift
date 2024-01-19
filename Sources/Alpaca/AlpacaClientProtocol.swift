@@ -130,7 +130,9 @@ extension AlpacaClientProtocol {
         #if canImport(FoundationNetworking)
         let (data, _) = try await dataAsync(with: request)
         #else
+        #if DEBUG
         Utils.logger.debug("Calling Alpaca: \(request.url?.absoluteString ?? "")")
+        #endif
         let (data, _) = try await URLSession.shared.data(for: request)
         #endif
 
