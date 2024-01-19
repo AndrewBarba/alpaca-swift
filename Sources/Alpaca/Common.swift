@@ -81,17 +81,17 @@ public struct NumericString<Value: StringRepresentable>: Codable {
     }
 }
 
-public struct AlpacaError: Error {
+public struct AlpacaError: LocalizedError {
     public var localizedDescription: String {
         get {
             return self.message
         }
     }
     
-    public var code: Int
+    public var code: Int?
     public var message: String
     
-    init(code: Int, message: String) {
+    init(code: Int?, message: String) {
         self.code = code
         self.message = message
     }
