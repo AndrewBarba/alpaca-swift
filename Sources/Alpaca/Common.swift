@@ -88,6 +88,12 @@ public struct AlpacaError: LocalizedError {
         }
     }
     
+    public var errorDescription: String? {
+        get {
+            return self.message
+        }
+    }
+    
     public var code: Int?
     public var message: String
     
