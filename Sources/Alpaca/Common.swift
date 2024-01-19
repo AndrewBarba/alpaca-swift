@@ -16,7 +16,7 @@ public struct EmptyResponse: Decodable {
 }
 
 public struct ErrorResponse: Decodable {
-    internal let code: Int
+    internal let code: Int?
     internal let message: String
 }
 
