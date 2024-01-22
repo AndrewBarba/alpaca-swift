@@ -23,7 +23,7 @@ public struct Account: Codable, Identifiable {
         case submitted = "SUBMITTED"
         case active = "ACTIVE"
     }
-
+    
     public let id: UUID
     public let accountNumber: String
     public let currency: String
