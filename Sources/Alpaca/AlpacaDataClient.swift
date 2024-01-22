@@ -7,19 +7,12 @@
 
 import Foundation
 
-public struct AlpacaDataClient: AlpacaClientProtocol {
-
-    public let environment: Environment
-    
+public struct AlpacaDataClient: AlpacaClientProtocol {    
+    public let api: API
     public let timeoutInterval: TimeInterval
 
-    internal init(key: String, secret: String, timeoutInterval: TimeInterval) {
-        self.environment = .data(key: key, secret: secret)
-        self.timeoutInterval = timeoutInterval
-    }
-    
-    internal init(accessToken: String, timeoutInterval: TimeInterval) {
-        self.environment = .data(accessToken: accessToken)
+    init(authType: API.AuthType, timeoutInterval: TimeInterval) {
+        self.api = .data(authType: authType)
         self.timeoutInterval = timeoutInterval
     }
 }

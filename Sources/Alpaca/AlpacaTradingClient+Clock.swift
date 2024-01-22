@@ -14,8 +14,8 @@ public struct Clock: Codable {
     public let nextClose: Date
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func clock() async throws -> Clock {
-        return try await get("clock")
+        return try await get("/v2/clock")
     }
 }

@@ -93,9 +93,9 @@ public struct PortfolioHistory: Decodable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func portfolioHistory(period: String? = nil, timeframe: PortfolioHistory.Timeframe? = nil, dateEnd: Date? = nil, extendedHours: Bool? = nil) async throws -> PortfolioHistory {
-        return try await get("account/portfolio/history", searchParams: [
+        return try await get("/v2/account/portfolio/history", searchParams: [
             "period": period,
             "timeframe": timeframe?.rawValue,
             "date_end": dateEnd.map(Utils.iso8601DateOnlyFormatter.string),

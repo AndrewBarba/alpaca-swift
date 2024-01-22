@@ -117,9 +117,9 @@ public struct Order: Codable, Identifiable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func orders(status: String? = nil, limit: Int? = nil, after: Date? = nil, until: Date? = nil, direction: SortDirection? = nil, nested: Bool? = nil) async throws -> [Order] {
-        return try await get("orders", searchParams: [
+        return try await get("v2/orders", searchParams: [
             "status": status,
             "limit": limit.map(String.init),
             "after": after.map(Utils.iso8601DateFormatter.string),
@@ -130,15 +130,15 @@ extension AlpacaClient {
     }
 
     public func order(id: UUID, nested: Bool? = nil) async throws -> Order {
-        return try await get("orders/\(id)", searchParams: ["nested": nested.map(String.init)])
+        return try await get("v2/orders/\(id)", searchParams: ["nested": nested.map(String.init)])
     }
 
     public func order(id: String, nested: Bool? = nil) async throws -> Order {
-        return try await get("orders/\(id)", searchParams: ["nested": nested.map(String.init)])
+        return try await get("v2/orders/\(id)", searchParams: ["nested": nested.map(String.init)])
     }
 
     public func createOrder(symbol: String, qty: Double, side: Order.Side, type: Order.OrderType, timeInForce: Order.TimeInForce, limitPrice: Double? = nil, stopPrice: Double? = nil, extendedHours: Bool = false, `class`: Order.Class? = nil, takeProfitLimitPrice: Double? = nil, stopLoss: (stopPrice: Double, limitPrice: Double?)? = nil) async throws -> Order {
-        return try await post("orders", body: [
+        return try await post("/v2/orders", body: [
             "symbol": symbol,
             "qty": qty,
             "side": side.rawValue,
@@ -154,14 +154,14 @@ extension AlpacaClient {
     }
 
     public func cancelOrders() async throws -> [MultiResponse<Order>] {
-        return try await delete("orders")
+        return try await delete("/v2/orders")
     }
 
     public func cancelOrder(id: String) async throws {
-        return try await delete("orders/\(id)")
+        return try await delete("/v2/orders/\(id)")
     }
 
     public func cancelOrder(id: UUID) async throws {
-        return try await delete("orders/\(id.uuidString)")
+        return try await delete("/v2/orders/\(id.uuidString)")
     }
 }

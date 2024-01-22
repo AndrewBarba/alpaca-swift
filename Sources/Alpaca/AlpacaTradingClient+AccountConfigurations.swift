@@ -42,17 +42,17 @@ public struct AccountConfiguration: Codable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func accountConfigurations() async throws -> AccountConfiguration {
-        return try await get("account/configurations")
+        return try await get("/v2/account/configurations")
     }
 
     public func saveAccountConfigurations(_ configuration: AccountConfiguration) async throws -> AccountConfiguration {
-        return try await patch("account/configurations", body: configuration)
+        return try await patch("/v2/account/configurations", body: configuration)
     }
 
     public func saveAccountConfigurations(dtbpCheck: AccountConfiguration.DayTradeBuyingPowerCheck? = nil, pdtCheck: AccountConfiguration.PatterDayTraderCheck? = nil, noShorting: Bool? = nil, suspendTrade: Bool? = nil, fractionalTrading: Bool? = nil, tradeConfirmEmail: AccountConfiguration.TradeConfirmEmail? = nil) async throws -> AccountConfiguration {
-        return try await patch("account/configurations", body: [
+        return try await patch("/v2/account/configurations", body: [
             "dtbp_check": dtbpCheck?.rawValue,
             "pdt_check": pdtCheck?.rawValue,
             "no_shorting": noShorting,

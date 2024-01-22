@@ -30,7 +30,7 @@ extension AlpacaDataClient {
             "symbols": symbols.joined(separator: ","),
             "feed": feed.rawValue
         ]
-        return try await get("stocks/snapshots", searchParams: searchParams)
+        return try await get("/v2/stocks/snapshots", searchParams: searchParams)
     }
     
     public func snapshots(assets: [Asset], feed: Feed = .iex) async throws -> [String: Snapshot] {

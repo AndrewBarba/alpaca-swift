@@ -70,6 +70,6 @@ internal enum Utils {
     }()
     
     static var logger: Logger {
-        Logger(subsystem: "com.stockbucket.alpaca-swift", category: "comm")
+        Logger(subsystem: "io.stockbucket.alpaca-swift", category: "comm")
     }
 }

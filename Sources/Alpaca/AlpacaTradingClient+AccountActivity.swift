@@ -210,15 +210,15 @@ public enum AccountActivity: Decodable {
 }
 
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func accountActivities(types: [ActivityType]? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities", searchParams: [
+        return try await get("/v2/account/activities", searchParams: [
             "activity_types": types?.compactMap{ $0.rawValue }.joined(separator: ",")
         ])
     }
 
     public func accountActivities(type: ActivityType, date: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities/\(type.rawValue)", searchParams: [
+        return try await get("/v2/account/activities/\(type.rawValue)", searchParams: [
             "date": Utils.iso8601DateOnlyFormatter.string(from: date),
             "direction": direction.map(\.rawValue),
             "page_size": pageSize.map(String.init),
@@ -227,7 +227,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(category: AccountActivity.Category, date: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities", searchParams: [
+        return try await get("/v2/account/activities", searchParams: [
             "date": Utils.iso8601DateOnlyFormatter.string(from: date),
             "direction": direction.map(\.rawValue),
             "page_size": pageSize.map(String.init),
@@ -237,7 +237,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(type: ActivityType, after: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities/\(type.rawValue)", searchParams: [
+        return try await get("/v2/account/activities/\(type.rawValue)", searchParams: [
             "after": Utils.iso8601DateOnlyFormatter.string(from: after),
             "direction": direction.map(\.rawValue),
             "page_size": pageSize.map(String.init),
@@ -246,7 +246,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(type: ActivityType, until: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities/\(type.rawValue)", searchParams: [
+        return try await get("/v2/account/activities/\(type.rawValue)", searchParams: [
             "until": Utils.iso8601DateOnlyFormatter.string(from: until),
             "direction": direction.map(\.rawValue),
             "page_size": pageSize.map(String.init),
@@ -255,7 +255,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(type: ActivityType, after: Date, until: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities/\(type.rawValue)", searchParams: [
+        return try await get("/v2/account/activities/\(type.rawValue)", searchParams: [
             "after": Utils.iso8601DateOnlyFormatter.string(from: after),
             "until": Utils.iso8601DateOnlyFormatter.string(from: until),
             "direction": direction.map(\.rawValue),
@@ -265,7 +265,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(category: AccountActivity.Category, after: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities", searchParams: [
+        return try await get("/v2/account/activities", searchParams: [
             "after": Utils.iso8601DateOnlyFormatter.string(from: after),
             "direction": direction.map(\.rawValue),
             "page_size": pageSize.map(String.init),
@@ -275,7 +275,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(category: AccountActivity.Category, until: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities", searchParams: [
+        return try await get("/v2/account/activities", searchParams: [
             "until": Utils.iso8601DateOnlyFormatter.string(from: until),
             "direction": direction.map(\.rawValue),
             "page_size": pageSize.map(String.init),
@@ -285,7 +285,7 @@ extension AlpacaClient {
     }
     
     public func accountActivities(category: AccountActivity.Category, after: Date, until: Date, direction: SortDirection? = nil, pageSize: Int? = nil, pageToken: String? = nil) async throws -> [AccountActivity] {
-        return try await get("account/activities", searchParams: [
+        return try await get("/v2/account/activities", searchParams: [
             "after": Utils.iso8601DateOnlyFormatter.string(from: after),
             "until": Utils.iso8601DateOnlyFormatter.string(from: until),
             "direction": direction.map(\.rawValue),

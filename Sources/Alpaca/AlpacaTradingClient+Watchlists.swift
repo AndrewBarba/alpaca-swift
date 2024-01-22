@@ -25,56 +25,56 @@ public struct Watchlist: Codable, Identifiable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func watchlists() async throws -> [Watchlist] {
-        return try await get("watchlists")
+        return try await get("/v2/watchlists")
     }
 
     public func createWatchlist(name: String, symbols: [String]) async throws -> Watchlist {
-        return try await post("watchlists", body: ["name": name, "symbols": symbols])
+        return try await post("/v2/watchlists", body: ["name": name, "symbols": symbols])
     }
 
     public func watchlist(id: String) async throws -> Watchlist {
-        return try await get("watchlists/\(id)")
+        return try await get("/v2/watchlists/\(id)")
     }
 
     public func watchlist(id: UUID) async throws -> Watchlist {
-        return try await get("watchlists/\(id.uuidString)")
+        return try await get("/v2/watchlists/\(id.uuidString)")
     }
 
     public func updateWatchlist(id: String, name: String? = nil, symbols: [String]? = nil) async throws -> Watchlist {
-        return try await put("watchlists/\(id)", body: ["name": name, "symbols": symbols])
+        return try await put("/v2/watchlists/\(id)", body: ["name": name, "symbols": symbols])
     }
 
     public func updateWatchlist(id: UUID, name: String? = nil, symbols: [String]? = nil) async throws -> Watchlist {
-        return try await put("watchlists/\(id.uuidString)", body: ["name": name, "symbols": symbols])
+        return try await put("/v2/watchlists/\(id.uuidString)", body: ["name": name, "symbols": symbols])
     }
     
     public func renameWatchlist(id: UUID, name: String) async throws -> Watchlist {
-        return try await put("watchlists/\(id.uuidString)", body: ["name": name])
+        return try await put("/v2/watchlists/\(id.uuidString)", body: ["name": name])
     }
 
     public func updateWatchlist(id: String, add symbol: String) async throws -> Watchlist {
-        return try await post("watchlists/\(id)", body: ["symbol": symbol])
+        return try await post("/v2/watchlists/\(id)", body: ["symbol": symbol])
     }
 
     public func updateWatchlist(id: UUID, add symbol: String) async throws -> Watchlist {
-        return try await post("watchlists/\(id.uuidString)", body: ["symbol": symbol])
+        return try await post("/v2/watchlists/\(id.uuidString)", body: ["symbol": symbol])
     }
 
     public func updateWatchlist(id: String, remove symbol: String) async throws -> Watchlist {
-        return try await delete("watchlists/\(id)/\(symbol)")
+        return try await delete("/v2/watchlists/\(id)/\(symbol)")
     }
 
     public func updateWatchlist(id: UUID, remove symbol: String) async throws -> Watchlist {
-        return try await delete("watchlists/\(id.uuidString)/\(symbol)")
+        return try await delete("/v2/watchlists/\(id.uuidString)/\(symbol)")
     }
 
     public func deleteWatchlist(id: String) async throws -> EmptyResponse {
-        return try await delete("watchlists/\(id)")
+        return try await delete("/v2/watchlists/\(id)")
     }
 
     public func deleteWatchlist(id: UUID) async throws -> EmptyResponse {
-        return try await delete("watchlists/\(id.uuidString)")
+        return try await delete("/v2/watchlists/\(id.uuidString)")
     }
 }

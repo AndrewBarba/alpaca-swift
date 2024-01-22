@@ -7,43 +7,48 @@
 
 import Foundation
 
-public struct Environment {
+public enum Environment {
+    case live(authType: API.AuthType)
+    case paper(authType: API.AuthType)
+    
+    func authType() -> API.AuthType {
+        switch self {
+        case .live(let authType):
+            return authType
+        case .paper(let authType):
+            return authType
+        }
+    }
+}
+
+public enum API {
     public enum AuthType {
         case basic(key: String, secret: String)
         case oauth(accessToken: String)
-    }
-    public let api: String
-    public let authType: AuthType
-
-    internal static func data(key: String, secret: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v2", authType: .basic(key: key, secret: secret))
-    }
-    
-    internal static func data(accessToken: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v2", authType: .oauth(accessToken: accessToken))
-    }
-    
-    internal static func screener(key: String, secret: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v1beta1/screener", authType: .basic(key: key, secret: secret))
+        
+        func authorize(request: inout URLRequest) {
+            switch self {
+            case .basic(let key, let secret):
+                request.setValue(key, forHTTPHeaderField: "APCA-API-KEY-ID")
+                request.setValue(secret, forHTTPHeaderField: "APCA-API-SECRET-KEY")
+            case .oauth(let accessToken):
+                request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            }
+        }
     }
     
-    internal static func screener(accessToken: String) -> Self {
-        Environment(api: "https://data.alpaca.markets/v1beta1/screener", authType: .oauth(accessToken: accessToken))
-    }
-
-    public static func live(key: String, secret: String) -> Self {
-        Environment(api: "https://api.alpaca.markets/v2", authType: .basic(key: key, secret: secret))
-    }
+    case paper(authType: AuthType)
+    case live(authType: AuthType)
+    case data(authType: AuthType)
     
-    public static func live(accessToken: String) -> Self {
-        Environment(api: "https://api.alpaca.markets/v2", authType: .oauth(accessToken: accessToken))
-    }
-
-    public static func paper(key: String, secret: String) -> Self {
-        Environment(api: "https://paper-api.alpaca.markets/v2", authType: .basic(key: key, secret: secret))
-    }
-    
-    public static func paper(accessToken: String) -> Self {
-        Environment(api: "https://paper-api.alpaca.markets/v2", authType: .oauth(accessToken: accessToken))
+    var domain: String {
+        switch self {
+        case .paper:
+            return "paper-api.alpaca.markets"
+        case .live:
+            return "api.alpaca.markets"
+        case .data:
+            return "data.alpaca.markets"
+        }
     }
 }

@@ -13,9 +13,9 @@ public struct Calendar: Codable {
     public let close: String
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     func calendar(start: String? = nil, end: String? = nil) async throws -> [Calendar] {
-        return try await get("calendar", searchParams: ["start": start, "end": end])
+        return try await get("/v2/calendar", searchParams: ["start": start, "end": end])
     }
 
     public func calendar(start: Date? = nil, end: Date? = nil) async throws -> [Calendar] {

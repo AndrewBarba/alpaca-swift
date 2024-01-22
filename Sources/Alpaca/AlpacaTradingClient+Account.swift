@@ -89,8 +89,8 @@ public struct Account: Codable, Identifiable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func account() async throws -> Account {
-        return try await get("account")
+        return try await get("/v2/account")
     }
 }

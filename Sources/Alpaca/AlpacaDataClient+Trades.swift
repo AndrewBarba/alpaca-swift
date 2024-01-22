@@ -61,7 +61,7 @@ extension AlpacaDataClient {
             "feed": feed.rawValue
         ]
         
-        let response: LatestTradesResponse = try await get("stocks/trades/latest", searchParams: searchParams)
+        let response: LatestTradesResponse = try await get("/v2/stocks/trades/latest", searchParams: searchParams)
         guard let trade = response.trades[symbol] else {
             throw RequestError.invalidResponse("LatestTrade response contained no symbol: \(symbol)")
         }
@@ -74,7 +74,7 @@ extension AlpacaDataClient {
             "feed": feed.rawValue
         ]
         
-        let response: LatestTradesResponse = try await get("stocks/trades/latest", searchParams: searchParams)
+        let response: LatestTradesResponse = try await get("/v2/stocks/trades/latest", searchParams: searchParams)
         return response.trades
     }
     public func trades(symbols: [String], start: Date? = nil, end: Date? = nil, limit: Int? = nil, asof: Date? = nil, feed: Feed = .iex) async throws -> [String: [Trade]] {
@@ -87,11 +87,11 @@ extension AlpacaDataClient {
             "feed": feed.rawValue
         ]
         
-        var response: TradesResponse = try await get("stocks/trades", searchParams: searchParams)
+        var response: TradesResponse = try await get("/v2/stocks/trades", searchParams: searchParams)
         var trades = response.trades
         while let pageToken = response.nextPageToken {
             searchParams["page_token"] = pageToken
-            response = try await get("stocks/trades", searchParams: searchParams)
+            response = try await get("/v2/stocks/trades", searchParams: searchParams)
             response.trades.forEach {
                 trades[$0]?.append(contentsOf: $1)
             }

@@ -24,8 +24,7 @@ public enum HTTPMethod: String {
 }
 
 public protocol AlpacaClientProtocol {
-    var environment: Environment { get }
-    
+    var api: API { get }
     var timeoutInterval: TimeInterval { get }
 }
 
@@ -105,22 +104,27 @@ extension AlpacaClientProtocol {
     }
     
     private func request<T>(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil, httpBody: Data? = nil) async throws -> T where T: Decodable {
-        var components = URLComponents(string: "\(environment.api)/\(urlPath)")
-        components?.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = api.domain
+        components.path = urlPath
+        components.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)
 
-        guard let url = components?.url else {
+        guard let url = components.url else {
             throw RequestError.invalidURL
         }
 
         var request = URLRequest(url: url)
-        if case .oauth(let accessToken) = environment.authType {
-            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        }
         
-        if case .basic(let key, let secret) = environment.authType {
-            request.setValue(key, forHTTPHeaderField: "APCA-API-KEY-ID")
-            request.setValue(secret, forHTTPHeaderField: "APCA-API-SECRET-KEY")
+        switch api {
+        case .paper(authType: let authType):
+            authType.authorize(request: &request)
+        case .live(authType: let authType):
+            authType.authorize(request: &request)
+        case .data(authType: let authType):
+            authType.authorize(request: &request)
         }
+
         request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("alpaca-swift/1.0", forHTTPHeaderField: "User-Agent")
@@ -150,22 +154,27 @@ extension AlpacaClientProtocol {
     }
     
     private func request(_ method: HTTPMethod, urlPath: String, searchParams: HTTPSearchParams? = nil, httpBody: Data? = nil) async throws {
-        var components = URLComponents(string: "\(environment.api)/\(urlPath)")
-        components?.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = api.domain
+        components.path = urlPath
+        components.queryItems = searchParams?.compactMapValues { $0 }.map(URLQueryItem.init)
 
-        guard let url = components?.url else {
+        guard let url = components.url else {
             throw RequestError.invalidURL
         }
 
         var request = URLRequest(url: url)
-        if case .oauth(let accessToken) = environment.authType {
-            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        switch api {
+        case .paper(authType: let authType):
+            authType.authorize(request: &request)
+        case .live(authType: let authType):
+            authType.authorize(request: &request)
+        case .data(authType: let authType):
+            authType.authorize(request: &request)
         }
-        
-        if case .basic(let key, let secret) = environment.authType {
-            request.setValue(key, forHTTPHeaderField: "APCA-API-KEY-ID")
-            request.setValue(secret, forHTTPHeaderField: "APCA-API-SECRET-KEY")
-        }
+
         request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("alpaca-swift/1.0", forHTTPHeaderField: "User-Agent")

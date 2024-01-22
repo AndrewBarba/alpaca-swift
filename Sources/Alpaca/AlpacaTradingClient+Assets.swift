@@ -52,20 +52,20 @@ public struct Asset: Codable, Identifiable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func assets(status: Asset.Status? = nil, assetClass: Asset.Class? = nil) async throws -> [Asset] {
-        return try await get("assets", searchParams: ["status": status?.rawValue, "asset_class": assetClass?.rawValue])
+        return try await get("/v2/assets", searchParams: ["status": status?.rawValue, "asset_class": assetClass?.rawValue])
     }
 
     public func asset(id: String) async throws -> Asset {
-        return try await get("assets/\(id)")
+        return try await get("/v2/assets/\(id)")
     }
 
     public func asset(id: UUID) async throws -> Asset {
-        return try await get("assets/\(id.uuidString)")
+        return try await get("/v2/assets/\(id.uuidString)")
     }
 
     public func asset(symbol: String) async throws -> Asset {
-        return try await get("assets/\(symbol)")
+        return try await get("/v2/assets/\(symbol)")
     }
 }

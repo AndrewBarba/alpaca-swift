@@ -71,11 +71,11 @@ extension AlpacaDataClient {
             "until": until.map(Utils.iso8601DateFormatter.string),
             "timeframe": timeframe.rawValue
         ]
-        var response: BarResponse = try await get("stocks/bars", searchParams: searchParams)
+        var response: BarResponse = try await get("/v2/stocks/bars", searchParams: searchParams)
         var bars = response.bars
         while let pageToken = response.nextPageToken {
             searchParams["page_token"] = pageToken
-            response = try await get("stocks/bars", searchParams: searchParams)
+            response = try await get("/v2/stocks/bars", searchParams: searchParams)
             response.bars.forEach {
                 if let _ = bars[$0] {
                     bars[$0]?.append(contentsOf: $1)

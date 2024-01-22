@@ -50,36 +50,36 @@ public struct Position: Codable {
     }
 }
 
-extension AlpacaClient {
+extension AlpacaTradingClient {
     public func positions() async throws -> [Position] {
-        return try await get("positions")
+        return try await get("/v2/positions")
     }
 
     public func position(assetId: String) async throws -> Position {
-        return try await get("positions/\(assetId)")
+        return try await get("/v2/positions/\(assetId)")
     }
 
     public func position(assetId: UUID) async throws -> Position {
-        return try await get("positions/\(assetId.uuidString)")
+        return try await get("/v2/positions/\(assetId.uuidString)")
     }
 
     public func position(symbol: String) async throws -> Position {
-        return try await get("positions/\(symbol)")
+        return try await get("/v2/positions/\(symbol)")
     }
 
     public func closePositions() async throws -> [MultiResponse<Order>] {
-        return try await delete("positions")
+        return try await delete("/v2/positions")
     }
 
     public func closePosition(assetId: String) async throws -> Order {
-        return try await delete("positions/\(assetId)")
+        return try await delete("/v2/positions/\(assetId)")
     }
 
     public func closePosition(assetId: UUID) async throws -> Order {
-        return try await delete("positions/\(assetId.uuidString)")
+        return try await delete("/v2/positions/\(assetId.uuidString)")
     }
 
     public func closePosition(symbol: String) async throws -> Order {
-        return try await delete("positions/\(symbol)")
+        return try await delete("/v2/positions/\(symbol)")
     }
 }
