@@ -12,7 +12,7 @@ enum Environment: String {
 
 final class AlpacaTests: XCTestCase {
 
-    let client = AlpacaAPI(environment: .paper(authType: .basic(key: Environment.alpacaApiKey.rawValue, secret: Environment.alpacaApiSecret.rawValue)))
+    let client = AlpacaAPI(.paper(authType: .basic(key: Environment.alpacaApiKey.rawValue, secret: Environment.alpacaApiSecret.rawValue)))
 
     func testClientAPI() {
         XCTAssertEqual(client.trading.api.domain, "paper-api.alpaca.markets")
@@ -134,12 +134,12 @@ final class AlpacaTests: XCTestCase {
     }
     
     func testScreenerLastestMovers() async throws {
-        let movers = try await client.data.marketMovers(type: .stocks, limit: 3)
+        let movers = try await client.data.screener.marketMovers(type: .stocks, limit: 3)
         print(movers)
     }
     
     func testScreenerMostActive() async throws {
-        let active = try await client.data.mostActive(by: .trades, limit: 5)
+        let active = try await client.data.screener.mostActive(by: .trades, limit: 5)
         print(active)
     }
 

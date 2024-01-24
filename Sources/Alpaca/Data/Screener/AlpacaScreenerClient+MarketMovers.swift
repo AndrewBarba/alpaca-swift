@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Mike Mello on 12/18/23.
+//  Created by Mike Mello on 1/23/24.
 //
 
 import Foundation
@@ -26,7 +26,7 @@ public struct MarketMovers: Codable {
     public let lastUpdated: Date
 }
 
-extension AlpacaDataClient {
+extension AlpacaScreenerClient {
     public func marketMovers(type: MarketType, limit: Int = 10) async throws -> MarketMovers {
         return try await get("/v1beta1/screener/\(type.rawValue)/movers", searchParams: ["top": "\(limit)"])
     }
