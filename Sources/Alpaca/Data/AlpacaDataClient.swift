@@ -12,11 +12,13 @@ public struct AlpacaDataClient: AlpacaClientProtocol {
     public let timeoutInterval: TimeInterval
     
     public let screener: AlpacaScreenerClient
+    public let news: AlpacaNewsClient
 
     init(authType: API.AuthType, timeoutInterval: TimeInterval) {
         self.api = .data(authType: authType)
         self.timeoutInterval = timeoutInterval
         
         self.screener = AlpacaScreenerClient(authType: authType, timeoutInterval: timeoutInterval)
+        self.news = AlpacaNewsClient(authType: authType, timeoutInterval: timeoutInterval)
     }
 }

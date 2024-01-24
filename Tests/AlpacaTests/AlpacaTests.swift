@@ -142,6 +142,12 @@ final class AlpacaTests: XCTestCase {
         let active = try await client.data.screener.mostActive(by: .trades, limit: 5)
         print(active)
     }
+    
+    func testNewsArticles() async throws {
+        let startDate = Calendar.current.date(byAdding: .day, value: -2, to: .now)
+        let articles = try await client.data.news.articles(symbols: ["AAPL"], start: startDate)
+        print(articles)
+    }
 
     static var allTests = [
         ("testAccountRequest", testAssetsRequest),
