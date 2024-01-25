@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Mike Mello on 6/25/23.
+//  Created by Mike Mello on 1/24/24.
 //
 
 import Foundation
@@ -23,7 +23,7 @@ public struct Snapshot: Codable {
     }
 }
 
-extension AlpacaDataClient {
+extension AlpacaDataClient.StocksClient {
     
     public func snapshots(symbols: [String], feed: Feed = .iex) async throws -> [String: Snapshot] {
         let searchParams: HTTPSearchParams = [

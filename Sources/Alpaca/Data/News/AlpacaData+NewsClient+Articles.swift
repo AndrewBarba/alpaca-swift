@@ -39,7 +39,7 @@ public struct News: Decodable {
     public let nextPageToken: String?
 }
 
-extension AlpacaNewsClient {
+extension AlpacaDataClient.NewsClient {
     public func articles(
         symbols: [String],
         start: Date? = nil,

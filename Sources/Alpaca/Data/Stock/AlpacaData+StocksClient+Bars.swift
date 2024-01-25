@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Andrew Barba on 8/25/20.
+//  Created by Mike Mello on 1/24/24.
 //
 
 import Foundation
@@ -59,7 +59,7 @@ struct BarResponse: Codable {
     let nextPageToken: String?
 }
 
-extension AlpacaDataClient {
+extension AlpacaDataClient.StocksClient {
 
     public func bars(_ timeframe: Bar.Timeframe, symbols: [String], limit: Int? = nil, start: Date? = nil, end: Date? = nil, after: Date? = nil, until: Date? = nil) async throws -> [String: [Bar]] {
         var searchParams: HTTPSearchParams = [

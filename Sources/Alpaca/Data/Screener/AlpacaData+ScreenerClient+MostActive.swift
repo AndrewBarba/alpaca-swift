@@ -21,7 +21,7 @@ public struct MostActive: Codable {
     public let lastUpdated: Date
 }
 
-extension AlpacaScreenerClient {
+extension AlpacaDataClient.ScreenerClient {
     public func mostActive(by metric: MostActive.Metric, limit: Int = 10) async throws -> MostActive {
         return try await get("/v1beta1/screener/stocks/most-actives", searchParams: ["by": metric.rawValue, "top": "\(limit)"])
     }

@@ -26,7 +26,7 @@ public struct MarketMovers: Codable {
     public let lastUpdated: Date
 }
 
-extension AlpacaScreenerClient {
+extension AlpacaDataClient.ScreenerClient {
     public func marketMovers(type: MarketType, limit: Int = 10) async throws -> MarketMovers {
         return try await get("/v1beta1/screener/\(type.rawValue)/movers", searchParams: ["top": "\(limit)"])
     }

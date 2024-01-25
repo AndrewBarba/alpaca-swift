@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Mike Mello on 6/24/23.
+//  Created by Mike Mello on 1/24/24.
 //
 
 import Foundation
@@ -59,7 +59,7 @@ struct LatestQuoteResponse: Codable {
 }
 
 
-extension AlpacaDataClient {
+extension AlpacaDataClient.StocksClient {
     
     public func latestQuote(symbol: String, feed: Feed = .iex) async throws -> Quote {
         let searchParams: HTTPSearchParams = [

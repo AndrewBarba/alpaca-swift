@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Mike Mello on 6/23/23.
+//  Created by Mike Mello on 1/24/24.
 //
 
 import Foundation
@@ -53,7 +53,7 @@ struct LatestTradesResponse: Codable {
     let trades: [String: Trade]
 }
 
-extension AlpacaDataClient {
+extension AlpacaDataClient.StocksClient {
     
     public func latestTrade(symbol: String, feed: Feed = .iex) async throws -> Trade {
         let searchParams: HTTPSearchParams = [

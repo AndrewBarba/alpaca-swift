@@ -113,24 +113,24 @@ final class AlpacaTests: XCTestCase {
     }
 
     func testDataBarsRequest() async throws {
-        _ = _ = try await client.data.bars(.oneDay, symbol: "AAPL", limit: 1)
+        _ = _ = try await client.data.stocks.bars(.oneDay, symbol: "AAPL", limit: 1)
     }
     
     func testBarsMultiPage() async throws {
-        _ = _ = try await client.data.bars(.oneDay, symbols: ["AAPL", "TSLA", "SPY", "QQQ", "AMD", "GEVO", "AMZN", "SQQQ", "AVGO", "SNAP"], start: Calendar.current.date(byAdding: .month, value: -6, to: .now))
+        _ = _ = try await client.data.stocks.bars(.oneDay, symbols: ["AAPL", "TSLA", "SPY", "QQQ", "AMD", "GEVO", "AMZN", "SQQQ", "AVGO", "SNAP"], start: Calendar.current.date(byAdding: .month, value: -6, to: .now))
     }
     
     func testDataLatestQuote() async throws {
-        _ = try await client.data.latestQuote(symbol: "AAPL")
+        _ = try await client.data.stocks.latestQuote(symbol: "AAPL")
     }
     
     func testDataLatestSnapshot() async throws {
-        let snapshot = try await client.data.snapshots(symbols: ["AAPL"])
+        let snapshot = try await client.data.stocks.snapshots(symbols: ["AAPL"])
         print(snapshot)
     }
 
     func testDataBarsMultiRequest() async throws {
-        _ = _ = try await client.data.bars(.oneDay, symbols: ["AAPL", "FSLY"], limit: 1)
+        _ = _ = try await client.data.stocks.bars(.oneDay, symbols: ["AAPL", "FSLY"], limit: 1)
     }
     
     func testScreenerLastestMovers() async throws {
