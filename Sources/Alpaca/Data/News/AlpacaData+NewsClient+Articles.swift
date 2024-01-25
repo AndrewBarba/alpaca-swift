@@ -31,10 +31,6 @@ public struct NewsArticle: Codable {
 }
 
 public struct News: Decodable {
-    public enum Sort: String, Codable, RawRepresentable {
-        case asc
-        case desc
-    }
     var news: [NewsArticle]
     public let nextPageToken: String?
 }
@@ -45,7 +41,7 @@ extension AlpacaDataClient.NewsClient {
         start: Date? = nil,
         end: Date? = nil,
         limit: Int = 10,
-        sort: News.Sort? = nil,
+        sort: SortDirection? = nil,
         includeContent: Bool? = nil,
         excludeContentless: Bool? = nil
     ) async throws -> [NewsArticle] {
@@ -83,7 +79,7 @@ extension AlpacaDataClient.NewsClient {
         start: Date? = nil,
         end: Date? = nil,
         limit: Int = 10,
-        sort: News.Sort? = nil,
+        sort: SortDirection? = nil,
         includeContent: Bool? = nil,
         excludeContentless: Bool? = nil,
         nextPageToken: String? = nil

@@ -148,6 +148,12 @@ final class AlpacaTests: XCTestCase {
         let articles = try await client.data.news.articles(symbols: ["AAPL"], start: startDate)
         print(articles)
     }
+    
+    func testCorporateActions() async throws {
+        let startDate = Calendar.current.date(byAdding: .day, value: -90, to: .now)
+        let actions = try await client.data.corporateActions.actions(symbols: ["GLAD", "V", "MSFT"], start: startDate)
+        print(actions)
+    }
 
     static var allTests = [
         ("testAccountRequest", testAssetsRequest),
